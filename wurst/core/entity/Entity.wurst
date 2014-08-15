@@ -1,0 +1,238 @@
+package Entity
+import LinkedListModule
+import Terrain
+import public Fx
+import Angle
+import GameConstants
+import GameTimer
+import MapBounds
+import NewDummyRecycler
+
+public function item.getEntity() returns Entity
+	return this.getUserData() castTo Entity
+	
+public function item.setEntity(Entity e)
+	this.setUserData(e castTo int)
+
+public function unit.getEntity() returns Entity
+	return this.getUserData() castTo Entity
+	
+public function unit.setEntity(Entity e)
+	this.setUserData(e castTo int)
+
+public abstract class Entity
+	use LinkedListModule
+	
+	private vec3 pos
+	private vec3 vel = vec3(0,0,0)
+	
+	private real lastPosChange = 0.
+	private real speedFactor = 1.
+	
+	boolean sleeping 	= true
+	
+	player owner
+	boolean active 		= false
+	real weightFactor = 1
+	unit actor = null
+	Fx fx = null
+
+	construct( vec3 pos, player owner )
+		this.pos = pos
+		this.owner = owner
+		
+	construct( vec3 pos, unit actor )
+		this.pos = pos
+		this.actor = actor
+		this.owner = actor.getOwner()
+		actor..setEntity(this)..addAbility(HEIGHT_ENABLER)..removeAbility(HEIGHT_ENABLER)
+		..setXYZReal(pos)
+		
+	construct( vec3 pos, Fx fx )
+		this.pos = pos
+		this.fx = fx
+		this.owner = fx.getOwner()
+		fx.getDummy().setEntity(this)
+		fx.setXYZ(pos)
+		
+	function getZ() returns real
+		return pos.z
+		
+	function getPosUnsafe3() returns vec3
+		return pos
+
+	function getPosUnsafe2() returns vec2
+		return vec2(pos.x, pos.y)
+		
+	function getPos2() returns vec2
+		if actor != null and lastPosChange < currentTime
+			lastPosChange = currentTime
+			pos = vec3(actor.getX(), actor.getY(), pos.z)
+		return vec2(pos.x, pos.y)
+		
+	function getPos3() returns vec3
+		if actor != null and lastPosChange < currentTime
+			lastPosChange = currentTime
+			pos = actor.getPos3()
+		return pos
+		
+	function setPos2(vec2 pos, boolean wakeUp)
+		this.pos = vec3(pos.x, pos.y, this.pos.z)
+		lastPosChange = currentTime
+		if actor != null
+			actor.setXY(pos)
+		else if fx != null
+			fx.setXY(pos)
+		if wakeUp
+			sleeping = false
+			
+	function setPos3(vec3 pos, boolean wakeUp)
+		this.pos = pos
+		lastPosChange = currentTime
+		if actor != null
+			actor.setXYZReal(pos)
+		else if fx != null
+			fx.setXYZ(pos)
+		if wakeUp
+			sleeping = false
+			
+	function setPosZ( real z, boolean wakeUp )
+		this.pos.z = z
+		if actor != null
+			actor.setFlyHeight(z-getTZ(), 0)
+		if fx != null
+			fx.setZ(z-getTZ())
+		if wakeUp
+			sleeping = false
+		
+	function getTZ() returns real
+		return getTerrainZ(pos.x, pos.y)
+		
+	function getVel() returns vec3
+		return vel
+		
+	function scaleVel(real factor)
+		vel *= factor
+		
+	function setVel( vec3 vel )
+		this.vel = vel
+		sleeping = false
+		
+	function applyVel( vec3 vel )
+		this.vel += vel * weightFactor
+		sleeping = false
+		
+	function addVelToPos()
+		pos += vel
+		
+	function setToPos3()
+		if actor != null
+			actor.setXYZReal(pos)
+		if fx != null
+			fx.setXYZ(pos)
+			
+	function setToPos2()
+		if actor != null
+			actor.setXY(pos)
+		if fx != null
+			fx.setXY(pos.toVec2())
+		
+	function setTarget( vec2 tpos, real speed2 )
+		let speed = speed2 * ANIMATION_PERIOD
+		var t = distanceBetweenCoords(pos.x, pos.y, tpos.x, tpos.y) / speed
+		let tangle = angleBetweenCoords(pos.x, pos.y, tpos.x, tpos.y)
+		let e = getTerrainZ(tpos.x,tpos.y)
+		
+		if t < 1.
+			t = 1./speed
+		
+		let startZVelocity = ((-gravity.z * t) / 2 - pos.z/t + e/t)
+		this.setVel( vec3( Cos(tangle.radians()) * speed, Sin(tangle.radians()) * speed, startZVelocity) )
+
+	function update()
+		if not sleeping
+			physicsUpdate()
+			
+		if actor != null and pos.z < WATER_HEIGHT
+			actor.kill()
+			
+	private function updatePos()
+		if lastPosChange < currentTime
+			lastPosChange = currentTime
+			if actor != null 
+				pos = actor.getPos3(terrainZ)
+			else if fx != null
+				pos = fx.getPos3(terrainZ)
+				
+	boolean affectedByGravity = true
+	boolean flying = true
+	
+	// The higher the more slide. Should be < 1.
+	real friction = 0.9
+	// Defines the bounciness
+	real restitution = 0.5
+	real terrainZ = 0
+	effect slx = null
+	function physicsUpdate()
+		if slx != null
+			slx.destr()
+		if vel.lengthSquared() < 1 and not flying
+//			slx = actor.addEffect("Abilities\\Spells\\Undead\\Sleep\\SleepTarget.mdl", "overhead")
+			sleeping = true
+			return
+		terrainZ = getTerrainZ(pos.x, pos.y)
+		updatePos()
+		if not pos.inBounds()
+			scaleVel(-1.5)
+		if pos.z <= terrainZ + 0.1
+			if flying
+				flying = false
+				onGroundHit()
+			scaleVel(friction)
+			onGround()
+		else
+			if vel.lengthSquared() < 1 and not flying
+				onGround()
+			else
+				if not flying
+					flying = true
+					onEscapeGround()
+				if affectedByGravity
+					applyVel(gravity)
+				inAir()
+		setPos3(pos + (vel * speedFactor), false)
+			
+	function onGroundHit()
+		vel.z *= -restitution
+		if vel.z < 1
+			vel.z = 0
+		if actor != null
+			actor.setPropWindow(GetUnitDefaultPropWindow(actor))
+		
+	function onEscapeGround()
+		if actor != null
+			actor.setPropWindow(0)
+		
+	function onGround()
+		
+	function inAir()
+		
+	ondestroy
+		if fx != null
+			destroy fx
+		if slx != null
+			slx.destr()
+	
+
+function updateEntities()
+	Entity e = Entity.first
+	while e != null
+		if e.active
+			e.update()
+		e = e.next
+
+public function startEntityLoop()
+	CreateTimer().startPeriodic(ANIMATION_PERIOD, function updateEntities)
+
+
+	

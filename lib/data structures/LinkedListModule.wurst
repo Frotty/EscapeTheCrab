@@ -1,0 +1,45 @@
+package LinkedListModule
+
+public module LinkedListModule
+	static thistype first = null
+	static thistype last = null
+	static int size = 0
+	thistype prev
+	thistype next
+
+	construct()
+		size++
+		if size == 1
+			first = this
+			prev = null	
+		else
+			prev = last
+			last.next = this
+			first.prev = this
+		next = null
+		last = this
+
+	static function getFirst() returns thistype
+		return first
+		
+	function getNext() returns thistype
+		return next
+
+	function getPrev() returns thistype
+		return prev
+		
+		
+	function remove()
+		size--
+		if this != first
+			prev.next = next
+		if this != last
+			next.prev = prev	
+		if this == last
+			last = prev
+		if this == first
+			first = next
+			
+	ondestroy
+		remove()
+

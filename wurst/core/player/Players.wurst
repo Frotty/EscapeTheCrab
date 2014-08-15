@@ -1,0 +1,25 @@
+package Players
+import LinkedList
+
+public int playerNumber = 4
+
+public LinkedList<PData> allPlayers = new LinkedList<PData>()
+public PData array pDatas
+
+public class PData
+	unit pickdummy
+	player p
+	int id
+
+	construct(player p)
+		this.p = p
+		this.id = p.getId()
+		p.addGold(100)
+
+public function init_Players(boolean c)
+	if not c
+		for i = 0 to 4
+			if players[i].getSlotState() == PLAYER_SLOT_STATE_PLAYING
+				pDatas[i] = new PData(players[i])
+				allPlayers.add(pDatas[i])
+	playerNumber = allPlayers.getSize()

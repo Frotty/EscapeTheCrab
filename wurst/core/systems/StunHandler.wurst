@@ -1,0 +1,59 @@
+package StunHandler
+import MapStuff
+import BuffObjEditing
+import HashMap
+import Entity
+import ObjectIds
+import InstantDummyCaster
+int SPELL_ID 
+int BUFF_ID
+
+real array stunTimes
+
+LinkedList<unit> stunnedUnits = new LinkedList<unit>()
+
+timer checkTimer
+
+
+public function unit.applyStun(boolean stacking, real amount, player stunner)
+	if stunTimes[this.getEntity() castTo int] <= 0
+		InstantDummyCaster.castTarget(stunner, SPELL_ID, 1, "firebolt", this)
+		stunnedUnits.add(this)
+		if checkTimer == null
+			checkTimer = getTimer()
+			checkTimer.startPeriodic(0.05, () -> begin
+				for u in stunnedUnits
+					let id = u.getEntity() castTo int
+					let remain = stunTimes[id] - 0.05
+					stunTimes[id] = remain
+					if remain <= 0
+						if u != null
+							u.removeAbility(BUFF_ID)
+						stunnedUnits.remove(u)
+			end)
+	if stacking
+		stunTimes[this.getEntity() castTo int] += amount
+	else
+		stunTimes[this.getEntity() castTo int] = amount
+		
+
+	
+
+public function init_StunHandler(boolean c)
+	SPELL_ID = ABIL_ID_GEN.next()
+	BUFF_ID = ABIL_ID_GEN.next()
+	if c
+		let def = new AbilityDefinitionFireBoltcreep(SPELL_ID)
+		def..setName("Stun System Ability")
+		..setDurationHero(1, 9999)
+		..setDurationNormal(1, 9999)
+		..setCastRange(1, 92083)
+		..setManaCost(1, 0)
+		..setCooldown(1, 0)
+		..setDamage(1, 0)
+		..setTargetsAllowed(1, "")
+		..setMissileSpeed(0)
+		..setMissileArt("")
+		..setBuffs(1, idInteger2IdString(BUFF_ID))
+		let bdef = new BuffDefinition(BUFF_ID, 'BPSE')
+		bdef.setTargetAttachments(1, 1)

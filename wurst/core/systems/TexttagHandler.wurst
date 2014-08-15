@@ -1,0 +1,50 @@
+package TexttagHandler
+
+public enum Ttype
+	DAMAGE
+	HEAL
+	DOT
+	MISS
+	DODGE
+	GOLD
+	
+function Ttype.getColor() returns color
+	switch this
+		case DAMAGE
+			return color(255,90,58)
+		case HEAL
+			return color(140,222,82)
+		case DOT
+			return color(140,100,0)
+		case MISS
+			return color(255,0,0)
+		case DODGE
+			return color(82,82,255)
+		case GOLD
+			return color(255,220,0)
+	return color(255,255,255)
+
+class UnitTextTags
+	static thistype array storage
+	unit u
+	texttag array[6] ttxts
+
+	construct(unit u)
+		this.u = u
+		storage[u.getUserData()] = this
+		
+		
+class Texttag
+	texttag tt
+	vec3 pos
+	
+	construct(Ttype ttype)
+		
+		
+	
+public function addTexttagToUnit(unit target, Ttype ttype)
+	let index = target.getUserData()
+	if UnitTextTags.storage[index] == null
+		new UnitTextTags(target)
+	else if UnitTextTags.storage[index].u != target
+		

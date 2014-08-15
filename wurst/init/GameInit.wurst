@@ -1,0 +1,16 @@
+package GameInit
+import MapStuff
+import ClosureTimers
+import Entity
+
+function initResources(boolean compileTime)
+
+
+init
+	doAfter(0.01, () -> begin
+		initResources(false)
+		startEntityLoop()
+	end)
+	
+@compiletime function generateObjects()
+	initResources(true)

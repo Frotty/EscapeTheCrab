@@ -1,0 +1,92 @@
+package CollisionDetection
+import AbilityObjEditing
+import MapBounds
+import HashMap
+import ObjectIdGenerator
+import DamageDetection
+
+int MAX_COLLISION_SIZE
+int MIN_COLLISION_SIZE
+int array fastIds
+int array slowIds
+
+CollisionCallback array callbacks
+
+public abstract class CollisionCallback
+	int id = 0
+	abstract function run(unit hit, unit hitter)
+	
+public function unit.registerOnHitCallback(CollisionCallback cc)
+	callbacks[this.getUserData()] = cc
+	
+public function unit.registerOnHitCallback(int radius, boolean fast, CollisionCallback cc )
+	if radius < MIN_COLLISION_SIZE or radius > MAX_COLLISION_SIZE
+		error("Radius out of Bounds")
+	var lvl = radius mod 4
+	if lvl == 0
+		lvl = 4
+	if fast
+		this..addAbility(fastIds[radius])..setAbilityLevel(fastIds[radius], lvl)
+		cc.id = fastIds[radius]
+	else
+		this..addAbility(slowIds[radius])..setAbilityLevel(slowIds[radius], lvl)
+		cc.id = slowIds[radius]
+	callbacks[this.getUserData()] = cc
+	
+public function unit.removeOnHitCallback()
+	let id = this.getUserData()
+	if callbacks[id] != null
+		this.removeAbility(callbacks[id].id)
+		destroy callbacks[id]
+		callbacks[id] = null
+
+
+public function init_CollisionDetection(boolean c, int minCollisionSize, int maxCollisionSize)
+	MAX_COLLISION_SIZE = maxCollisionSize
+	MIN_COLLISION_SIZE = minCollisionSize
+	if minCollisionSize mod 4 != 0
+		error("minCollisionSize must be congruent to 0 mod 4")
+	if maxCollisionSize mod 4 != 0
+		error("maxCollisionSize must be congruent to 0 mod 4")
+	for i = MIN_COLLISION_SIZE to MAX_COLLISION_SIZE
+		fastIds[i] = ABIL_ID_GEN.next()
+		fastIds[i+1] = fastIds[i]
+		fastIds[i+2] = fastIds[i]
+		fastIds[i+3] = fastIds[i]
+		if c
+			var def = new AbilityDefinitionPhoenixFire(fastIds[i])..setLevels(4)
+			..setMissileArt("")..setMissileSpeed(0)..setEditorSuffix("(Collision Detection)")
+			for j = 1 to 4
+				def..setAreaofEffect(j, i+j * 1.)
+				..setInitialDamage(j, 0)..setDamagePerSecond(j, 0)..setCooldown(j, 0.03)..setTargetsAllowed(j, "air,ground,notself")
+		i += 3
+		
+		
+	for i = MIN_COLLISION_SIZE to MAX_COLLISION_SIZE
+		slowIds[i] = ABIL_ID_GEN.next()
+		slowIds[i+1] = slowIds[i]
+		slowIds[i+2] = slowIds[i]
+		slowIds[i+3] = slowIds[i]
+		if c
+			var def = new AbilityDefinitionPhoenixFire(slowIds[i])
+			..setMissileArt("")..setMissileSpeed(0)..setEditorSuffix("(Collision Detection)")
+			for j = 1 to 4
+				def..setAreaofEffect(j, i+j * 1.)
+				..setInitialDamage(j, 0)..setDamagePerSecond(j, 0)..setCooldown(j, 0.25)..setTargetsAllowed(j, "air,ground,notself")
+		i += 3
+			
+	if not c
+		addOnDamageFunc(Filter(() -> begin
+			let u = GetTriggerUnit()
+			if u.hasAbility('Bpxf')
+				u.removeAbility('Bpxf')
+				var cc = callbacks[u.getUserData()]
+				let u2 = GetEventDamageSource()
+				if cc != null
+					cc.run(u, u2)
+				cc = callbacks[u2.getUserData()]
+				if cc != null
+					cc.run(u, u2)
+					
+		end))
+		

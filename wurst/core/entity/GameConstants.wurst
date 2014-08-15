@@ -1,0 +1,20 @@
+package GameConstants
+
+public constant TEAM_ONE_CPU = Player(5)
+
+public constant OBJ_ED_PREFIX_UNIT 		= ('a'-'0')*256*256*256
+public constant OBJ_ED_PREFIX_SPELL 	= ('x'-'0')*256*256*256
+public constant OBJ_ED_PREFIX_BUILDING 	= ('b'-'0')*256*256*256
+public constant OBJ_ED_PREFIX_HERO		= ('Y'-'0')*256*256*256
+
+public constant CREEP_PLAYER = Player(11)
+
+public constant vec2 STATUE_POS = vec2(-77,0)
+
+public constant heroCount = 4
+
+public constant WATER_HEIGHT = 215.
+
+public var gravity = vec3(0,0,-1.4)
+public constant MAP_VER = "001"
+
