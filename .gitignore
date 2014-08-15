@@ -34,3 +34,7 @@ Icon
 # Files that might appear on external disk
 .Spotlight-V100
 .Trashes
+
+*.w3o
+objectEditingOutput/WurstExportedObjects_w3u.wurst.txt
+wurst/war3map.j
