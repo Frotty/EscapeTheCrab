@@ -44,9 +44,10 @@ public class Unit
 
 public function initHEUnits(boolean c)
 	var b = new Unit('nbee', WORKER_ID, "Worker")
-	b.def.setStructuresBuilt(idInteger2IdString(HOUSE_ID))
+	b.def.setStructuresBuilt(idInteger2IdString(HOUSE_ID) + "," + idInteger2IdString(BASIC_WALL_ID) + "," + idInteger2IdString(BASIC_TOWER_ID) + "," + idInteger2IdString(BARRACKS_ID))
 	b.modelpath = "units\\critters\\HighElfPeasant\\HighElfPeasant.mdl"
 	b.icon = "BTNBloodElfPeasant.blp"
+	b.hp = 100
 	
 	b = new Unit('nhea', ARCHER_ID, "Archer")
 	b.damage = 2

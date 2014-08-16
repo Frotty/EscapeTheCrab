@@ -41,6 +41,8 @@ public class AbilityTooltipGenerator
 		this.description = description
 		this.targettype = ttype
 		
+	construct()
+		
 	function setExtraLearnHotkey(string hotkey)
 		hotkeylearn = hotkey
 		

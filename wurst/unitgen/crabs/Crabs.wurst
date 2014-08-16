@@ -8,14 +8,14 @@ class Crab
 	UnitDefinition def
 	
 	int id
-	int hp = 10
+	int hp = 50
 	int movespeed = 300
 	int damage = 2
 	real cooldown = 0.5
 	real scale = 1.
 	int range = 40
 	Race rce = Race.Critters
-	MovementType mtype = MovementType.Foot
+	MovementType mtype = MovementType.Amphipic
 	
 	construct(int origId, int newId, string name)
 		def = new UnitDefinition(newId, origId)
@@ -38,21 +38,24 @@ public function initCrabs(boolean ct)
 	c.hp = 999999999
 	c.damage = 50
 	c.cooldown = 2.5
-	c.movespeed = 275
+	c.movespeed = 200
 	c.scale = 5
-	c.mtype = MovementType.Amphipic
-	c.range = 120
+	c.range = 80
+	c.def.setAcquisitionRange(20000)
 	
-	c = new Crab('nsc1', CRABBY_ID, "Crabby")
+	c = new Crab('nscb', CRABBY_ID, "Crabby")
 	c.movespeed = 350
 	
 	
-	c = new Crab('nscb', KINGLER_ID, "Kingler")
+	c = new Crab('nsc2', KINGLER_ID, "Kingler")
 	c.scale = 1.2
+	c.hp = 100
 	
 	c = new Crab('nqb2', PIGLET_ID, "Piglet")
 	c.scale = 0.8
-	
+	c.hp = 25
+	c.movespeed = 400
+
 	if ct
 		var e = Crab.first
 		while e != null

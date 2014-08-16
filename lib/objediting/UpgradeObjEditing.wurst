@@ -35,6 +35,3 @@ public class W3QDefinition
 	
 	function setButtonPositionX(int data)
 		def.setInt("ubpx", data)
-
-@compiletime function w3q()
-	new W3QDefinition('0000', 'RHan')

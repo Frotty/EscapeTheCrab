@@ -33,7 +33,7 @@ public function playCinematic()
 			doAfter(2 * speed, () -> begin
 				for p in allPlayers
 					p.worker = createUnit(p.p, WORKER_ID, target+vec2(0, 180), angle(0))
-					p.p..setState(PLAYER_STATE_RESOURCE_GOLD, 0)..setState(PLAYER_STATE_RESOURCE_LUMBER, 10)
+					p.p..setState(PLAYER_STATE_RESOURCE_GOLD, 0)..setState(PLAYER_STATE_RESOURCE_LUMBER, 5)
 				
 				createUnit(Player(10), FOOTMAN_ID, target+vec2(-20, 80), angle(0))
 				createUnit(Player(10), FOOTMAN_ID, target+vec2(20, 80), angle(0))

@@ -1,6 +1,5 @@
 package DamageDetection
 import MapBounds
-import Entity
 import OnUnitEnterLeave
 
 constant SWAP_TIMEOUT = 600. 
