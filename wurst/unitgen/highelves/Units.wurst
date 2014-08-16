@@ -13,22 +13,24 @@ public class Unit
 	int movespeed = 300
 	int damage = 2
 	real cooldown = 0.5
-	int goldcost = 5
-	int lumbercost = 0
+	int goldcost = 0
+	int lumbercost = 5
 	int buildtime = 5
 	real scale = 1.
 	string modelpath = "default"
 	string icon = "default"
+	string name
 	
 	construct(int origId, int newId, string name)
 		def = new UnitDefinition(newId, origId)
-		def.setName(name)
+		this.name = name
 		this.id = newId
 		
 		
 	function generate()
 		def..setHitPointsMaximumBase(hp)
 		..setSpeedBase(movespeed)
+		..setName(name)
 		..setAttack1DamageBase(damage)
 		..setAttack1CooldownTime(cooldown)
 		..setGoldCost(goldcost)
@@ -36,11 +38,14 @@ public class Unit
 		..setBuildTime(buildtime)
 		..setScalingValue(scale)
 		..setAttack1TargetsAllowed("enemy")
+		..setTooltipBasic("Train " + name)
+		..setTooltipExtended("Very good against crabs, or nagas.")
+
 		if modelpath != "default"
 			def.setModelFile(modelpath)
 		if icon != "default"
 			def.setIconGameInterface("ReplaceableTextures\\CommandButtons\\" + icon)
-	
+
 
 public function initHEUnits(boolean c)
 	var b = new Unit('nbee', WORKER_ID, "Worker")
