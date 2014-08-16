@@ -28,6 +28,8 @@ class Crab
 		..setAttack1CooldownTime(cooldown)
 		..setRace(rce)
 		..setScalingValue(scale)
+		..setMovementType(mtype)
+		..setSleeps(false)
 		
 public function initCrabs(boolean ct)
 	var c =  new Crab('nsc3', GECRAB_ID, "GIANT ENEMY CRAB")
@@ -37,11 +39,11 @@ public function initCrabs(boolean ct)
 	c.movespeed = 275
 	c.scale = 5
 	c.mtype = MovementType.Amphipic
-	
 	c = new Crab('nsc1', CRABBY_ID, "Crabby")
 	c.movespeed = 350
 	
-	c = new Crab('nsc2', KINGLER_ID, "Kingler")
+	
+	c = new Crab('nscb', KINGLER_ID, "Kingler")
 	c.scale = 1.2
 	
 	if ct

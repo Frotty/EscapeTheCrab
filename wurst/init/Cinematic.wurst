@@ -1,12 +1,58 @@
 package Cinematic
+import ClosureTimers
+import HighelvesIds
+import GiantEnemyCrab
+import SoundHelper
+import Players
 
 public constant CINEMATIC_SHIP_ID = 'hdes'
 
-vec2 start = vec2(4100, -600)
+Sound sup = new Sound("sup.mp3", 2093, false)
+Sound gec = new Sound("gec.mp3", 116112, false)
+vec2 start = vec2(4800, -800)
+vec2 target = vec2(-600, -2200)
 
-function playCinematic()
-	SetSkyModel("Environment\\Sky\\BlizzardSky\\BlizzardSky.mdl")
+public function playCinematic()
+	SetSkyModel("Environment\\Sky\\BlizzardSky\\GenericSky.mdl")
+	let dummy = createUnit(Player(0), 'nbee', vec2(0,0), angle(0) )
+	let dummy2 = createUnit(Player(1), 'hcth', vec2(0,0), angle(0) )
+	let boat = createUnit(Player(0), BOAT_ID, start, angle(180*DEGTORAD) )
+	boat.issuePointOrder("move", target)
 	CinematicModeBJ( true, GetPlayersAll() )
+	CameraSetupApplyForceDuration(gg_cam_Camera_001, true, 0.)
+	TransmissionFromUnitWithNameBJ( GetPlayersAll(), dummy, "Tourist", null, "Ah what a nice boat trip", bj_TIMETYPE_ADD, 5, false )
+	doAfter(5, () -> TransmissionFromUnitWithNameBJ( GetPlayersAll(), dummy2, "Captn", null, "Aye! This island is called the deadly crab island.\nBut the crab is only a myth, of course.", bj_TIMETYPE_ADD, 10, false ))
+	CameraSetupApplyForceDuration(gg_cam_Camera_002, true, 10.)
+	doAfter(10, () -> begin
+		CameraSetupApplyForceDuration(gg_cam_Camera_003, true, 5.)
+		doAfter(5, () -> begin
+			TransmissionFromUnitWithNameBJ( GetPlayersAll(), dummy, "Tourist", null, "Yay, let's go swimming!", bj_TIMETYPE_ADD, 5, false )
+			CameraSetupApplyForceDuration(gg_cam_Camera_004, true, 5.)
+			doAfter(2, () -> begin
+				for p in allPlayers
+					p.worker = createUnit(p.p, WORKER_ID, target, angle(0))
+				boat.pause()
+			end)
+			doAfter(5, () -> begin
+				dummy.remove()
+				dummy2.remove()
+				let crab = new GECrab(start)
+				CameraSetupApplyForceDuration(gg_cam_Camera_005, true, 1)
+				crab.crab.issuePointOrder("attack", target)
+				TransmissionFromUnitWithNameBJ( GetPlayersAll(), crab.crab, "GIANT ENEMY CRAB", null, "SUPRISE, MOTHERFUCKER!", bj_TIMETYPE_ADD, 5, false )
+				sup.play()
+				doAfter(2, () -> begin
+					gec.play()
+					doAfter(5, () -> begin
+						CameraSetupApplyForceDuration(gg_cam_Camera_004, true, 1.)
+						CinematicModeBJ( false, GetPlayersAll() )
+						for p in allPlayers
+							p.p.selectSingle(p.worker)
+					end)
+				end)
+			end)
+		end)
+	end)
 	/*for p in GetPlayersAll()
     	SetCameraTargetControllerNoZForPlayer( p, GetTriggerUnit(), 0, 0, false )
    		CameraSetEQNoiseForPlayer( p, 3 )

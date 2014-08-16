@@ -5,6 +5,8 @@ import Buildings
 import Crabs
 import ClosureTimers
 import Entity
+import Cinematic
+import Players
 
 function initResources(boolean compileTime)
 	initHEUnits(compileTime)
@@ -14,7 +16,9 @@ function initResources(boolean compileTime)
 init
 	doAfter(0.01, () -> begin
 		initResources(false)
+		initPlayers()
 		startEntityLoop()
+		playCinematic()
 	end)
 	
 @compiletime function generateObjects()
