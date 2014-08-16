@@ -1,0 +1,6 @@
+package CrabIds
+
+public constant GECRAB_ID = 'gecb'
+public constant CRABBY_ID = 'gcby'
+public constant KINGLER_ID = 'gkng'
+public constant PIGLET_ID = 'gpig'

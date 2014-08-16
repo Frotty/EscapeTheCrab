@@ -1,10 +1,15 @@
 package GameInit
 import MapStuff
+import Units
+import Buildings
+import Crabs
 import ClosureTimers
 import Entity
 
 function initResources(boolean compileTime)
-
+	initHEUnits(compileTime)
+	initHEBuildings(compileTime)
+	initCrabs(compileTime)
 
 init
 	doAfter(0.01, () -> begin

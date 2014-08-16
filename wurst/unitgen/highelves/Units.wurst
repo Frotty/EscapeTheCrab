@@ -1,0 +1,57 @@
+package Units
+import UnitObjEditing
+import LinkedListModule
+import HighelvesIds
+
+
+public class Unit
+	use LinkedListModule
+	UnitDefinition def
+	
+	int id
+	int hp = 10
+	int movespeed = 300
+	int damage = 2
+	real cooldown = 0.5
+	int goldcost = 5
+	int lumbercost = 0
+	int buildtime = 5
+	
+	construct(int origId, int newId, string name)
+		def = new UnitDefinition(newId, origId)
+		def.setName(name)
+		this.id = newId
+		
+		
+	function generate()
+		def..setHitPointsMaximumBase(hp)
+		..setSpeedBase(movespeed)
+		..setAttack1DamageBase(damage)
+		..setAttack1CooldownTime(cooldown)
+		..setGoldCost(goldcost)
+		..setLumberCost(lumbercost)
+		..setBuildTime(buildtime)
+		
+	
+
+public function initHEUnits(boolean c)
+	var b = new Unit('hpea', WORKER_ID, "Worker")
+	b.def.setStructuresBuilt(idInteger2IdString(HOUSE_ID))
+	
+	b = new Unit('earc', ARCHER_ID, "Archer")
+	b.damage = 2
+	b.hp = 8
+	b.cooldown = 0.45
+	
+	b = new Unit('hfoo', FOOTMAN_ID, "Footman")
+	b.damage = 2
+	b.hp = 8
+	b.cooldown = 0.45
+	
+	if c
+		var e = Unit.first
+		while e != null
+			e.generate()
+			e = e.next
+	
+	

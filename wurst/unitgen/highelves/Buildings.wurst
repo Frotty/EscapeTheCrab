@@ -42,9 +42,8 @@ public class Building
 		..setModelFile(modelpath)
 		..setFoodCost(foodused)
 	
-// ============
 
-@compiletime function generateBuildings()
+public function initHEBuildings(boolean c)
 	var b = new Building('hhou', HOUSE_ID, "House")
 	b.def.setUnitsTrained(idInteger2IdString(WORKER_ID))
 	b.foodused = 1
@@ -57,8 +56,8 @@ public class Building
 //	b.selectionscale = 0.5
 //	
 //	BUILDING_GOLDMINE = b
-	
-	var e = Building.first
-	while e != null
-		e.generate()
-		e = e.next
+	if c
+		var e = Building.first
+		while e != null
+			e.generate()
+			e = e.next

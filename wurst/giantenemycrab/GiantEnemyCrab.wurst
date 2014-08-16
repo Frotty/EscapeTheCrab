@@ -1,0 +1,9 @@
+package GiantEnemyCrab
+import CrabIds
+
+public class GECrab
+	unit crab
+	
+	construct(vec2 pos)
+		crab = createUnit(DUMMY_HOSTILE_PLAYER, GECRAB_ID, pos, angle(0))
+	

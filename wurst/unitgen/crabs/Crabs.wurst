@@ -1,0 +1,50 @@
+package Crabs
+import CrabIds
+import UnitObjEditing
+import LinkedListModule
+
+class Crab
+	use LinkedListModule
+	UnitDefinition def
+	
+	int id
+	int hp = 10
+	int movespeed = 300
+	int damage = 2
+	real cooldown = 0.5
+	real scale = 1.
+	Race rce = Race.Critters
+	
+	construct(int origId, int newId, string name)
+		def = new UnitDefinition(newId, origId)
+		def.setName(name)
+		this.id = newId
+	
+	function generate()
+		def..setHitPointsMaximumBase(hp)
+		..setSpeedBase(movespeed)
+		..setAttack1DamageBase(damage)
+		..setAttack1CooldownTime(cooldown)
+		..setRace(rce)
+		..setScalingValue(scale)
+		
+public function initCrabs(boolean ct)
+	var c =  new Crab('nsc3', GECRAB_ID, "GIANT ENEMY CRAB")
+	c.hp = 999999999
+	c.damage = 100
+	c.cooldown = 1.
+	c.movespeed = 275
+	c.scale = 5
+	
+	c = new Crab('nsc1', CRABBY_ID, "Crabby")
+	c.movespeed = 350
+	
+	c = new Crab('nsc2', KINGLER_ID, "Kingler")
+	c.scale = 1.2
+	
+	if ct
+		var e = Crab.first
+		while e != null
+			e.generate()
+			e = e.next
+	
