@@ -17,6 +17,8 @@ public class Unit
 	int lumbercost = 0
 	int buildtime = 5
 	real scale = 1.
+	string modelpath = "default"
+	string icon = "default"
 	
 	construct(int origId, int newId, string name)
 		def = new UnitDefinition(newId, origId)
@@ -33,21 +35,31 @@ public class Unit
 		..setLumberCost(lumbercost)
 		..setBuildTime(buildtime)
 		..setScalingValue(scale)
+		if modelpath != "default"
+			def.setModelFile(modelpath)
+		if icon != "default"
+			def.setIconGameInterface("ReplaceableTextures\\CommandButtons\\" + icon)
 	
 
 public function initHEUnits(boolean c)
 	var b = new Unit('hpea', WORKER_ID, "Worker")
 	b.def.setStructuresBuilt(idInteger2IdString(HOUSE_ID))
+	b.modelpath = "units\\critters\\HighElfPeasant\\HighElfPeasant.mdl"
+	b.icon = "BTNBloodElfPeasant.blp"
 	
 	b = new Unit('earc', ARCHER_ID, "Archer")
 	b.damage = 2
 	b.hp = 8
 	b.cooldown = 0.45
+	b.modelpath = "units\\creeps\\HighElfArcher\\HighElfArcher"
+	b.icon = "BTNHighElvenArcher.blp"
 	
 	b = new Unit('hfoo', FOOTMAN_ID, "Footman")
 	b.damage = 2
 	b.hp = 8
 	b.cooldown = 0.45
+	b.modelpath = "units\\human\\TheCaptain\\TheCaptain.mdl"
+	b.icon = "BTNTheCaptain.blp"
 	
 	b = new Unit('hbot', BOAT_ID, "BOAT")
 	b.scale = 3.

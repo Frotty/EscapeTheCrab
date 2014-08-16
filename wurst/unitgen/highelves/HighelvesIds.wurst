@@ -9,6 +9,11 @@ public constant BOAT_ID = 'yboa'
 // Buildings
 public constant HOUSE_ID = 'yhca'
 public constant BARRACKS_ID = 'yhba'
+public constant BASIC_WALL_ID = 'yhbw'
+public constant WALL_2_ID = 'yhw2'
+public constant WALL_3_ID = 'yhw3'
+public constant BASIC_TOWER_ID = 'yhbt'
+public constant ARROW_TOWER_ID = 'yhat'
 public constant TOK_ID = 'yhtk'
 
 //Ships

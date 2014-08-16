@@ -16,19 +16,24 @@ public class Building
 	int lumbercost = 5
 	real scale = 1.
 	real selectionscale = 1.
+	string name = "Farm"
+	string icon = "BTNFarm.blp"
 	string pathmap = "PathTextures\\4x4Unbuildable.tga"
 	string modelpath = "buildings\\other\\ElvenFarm\\ElvenFarm.mdl"
+	string tooltip = "This is a very useful building. Build it."
 	int buildtime = 10
 	int foodproduced = 5
 	int foodused = 0
+	boolean isupgrade = false 
 	
 	construct(int origId, int newId, string name)
 		def = new BuildingDefinition(newId, origId)
-		def..setName(name)
+		this.name = name
 		this.id = newId
 
 	function generate()
 		def..setPathingMap(pathmap)
+		..setName(name)
 		..setHitPointsMaximumBase(hp)
 		..setScalingValue(scale)
 		..setGroundTexture("")
@@ -38,10 +43,16 @@ public class Building
 		..setLumberCost(lumbercost)
 		..setRepairLumberCost((lumbercost/4).round())
 		..setBuildTime(buildtime)
-		..setRepairTime(buildtime*2)
+		..setRepairTime(buildtime)
 		..setFoodProduced(foodproduced)
 		..setModelFile(modelpath)
 		..setFoodCost(foodused)
+		..setIconGameInterface("ReplaceableTextures\\CommandButtons\\" + icon)
+		..setTooltipExtended(tooltip)
+		if isupgrade
+			def.setTooltipBasic("Upgrade to " + name)
+		else
+			def.setTooltipBasic("Build " + name)
 	
 
 public function initHEBuildings(boolean c)
@@ -55,12 +66,68 @@ public function initHEBuildings(boolean c)
 	b.foodproduced = 0
 	b.pathmap = "PathTextures\\6x6Unbuildable.tga"
 	b.modelpath = "buildings\\other\\MageTower\\MageTower.mdl"
+	b.icon = "BTNMageTower.blp"
 	b.hp = 150
 	b.buildtime = 15
 	b.foodused = 0
-	b.scale = 0.8
+	b.scale = 0.9
 	b.selectionscale = 3
 	b.lumbercost = 50
+	
+	b = new Building('hhou', BASIC_WALL_ID, "Simple Barricade")
+	b.def.setUpgradesTo(idInteger2IdString(WALL_2_ID))
+	b.foodproduced = 0
+	b.pathmap = "PathTextures\\4x4Unbuildable.tga"
+	b.modelpath = "Doodads\\LordaeronSummer\\Terrain\\Barricade\\Barricade0.mdl"
+	b.icon = "BTNArcaniteArchitecture.blp"
+	b.scale = 1.1
+	b.hp = 200
+	b.buildtime = 5
+	b.foodused = 0
+	b.selectionscale = 1
+	b.lumbercost = 10
+	
+	b = new Building('hhou', WALL_2_ID, "Splendid Barricade")
+	b.def.setUpgradesTo(idInteger2IdString(WALL_3_ID))
+	b.foodproduced = 0
+	b.pathmap = "PathTextures\\4x4Unbuildable.tga"
+	b.modelpath = "Doodads\\LordaeronSummer\\Terrain\\Barricade\\Barricade1.mdl"
+	b.icon = "BTNArcaniteArchitecture.blp"
+	b.scale = 1.3
+	b.hp = 1000
+	b.buildtime = 10
+	b.foodused = 0
+	b.selectionscale = 1
+	b.lumbercost = 50
+	b.isupgrade = true
+	
+	b = new Building('hhou', WALL_3_ID, "Critterproof Wall")
+	b.def.setTintingColorBlue(200)
+	b.def.setTintingColorRed(200)
+	b.def.setTintingColorGreen(200)
+	b.foodproduced = 0
+	b.pathmap = "PathTextures\\4x4Unbuildable.tga"
+	b.modelpath = "buildings\\human\\HumanTower\\HumanTower.mdl"
+	b.icon = "BTNHumanWatchTower.blp"
+	b.scale = 1.05
+	b.hp = 1000
+	b.buildtime = 10
+	b.foodused = 0
+	b.selectionscale = 1
+	b.lumbercost = 50
+	b.isupgrade = true
+	
+	b = new Building('hhou', BASIC_TOWER_ID, "Tower")
+	b.foodproduced = 0
+	b.pathmap = "PathTextures\\4x4Unbuildable.tga"
+	b.modelpath = "buildings\\human\\HumanTower\\HumanTower.mdl"
+	b.icon = "BTNHumanWatchTower.blp"
+	b.hp = 200
+	b.buildtime = 15
+	b.foodused = 0
+	b.scale = 0.9
+	b.selectionscale = 1
+	b.lumbercost = 10
 	
 	
 //	b = new Building('hgtw', ARROWTOWER_ID, "Arrow Tower")
