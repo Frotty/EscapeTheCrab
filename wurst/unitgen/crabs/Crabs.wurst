@@ -43,11 +43,11 @@ public function initCrabs(boolean ct)
 	c.range = 80
 	c.def.setAcquisitionRange(20000)
 	
-	c = new Crab('nsc1', CRABBY_ID, "Crabby")
+	c = new Crab('nscb', CRABBY_ID, "Crabby")
 	c.movespeed = 350
 	
 	
-	c = new Crab('nscb', KINGLER_ID, "Kingler")
+	c = new Crab('nsc2', KINGLER_ID, "Kingler")
 	c.scale = 1.2
 	c.hp = 100
 	

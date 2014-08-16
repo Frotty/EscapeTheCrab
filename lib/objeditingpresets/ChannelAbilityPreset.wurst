@@ -70,7 +70,7 @@ public class ChannelAbilityPreset extends AbilityDefinitionIllidanChannel
 			setArtTarget("")
 			
 	function presetTargetTypes(Targettype ttype)
-		presetTargetType((int lvl) -> ttype castTo int)
+		presetTargetType((int lvl) -> ttype castTo int + 0)
 					
 	function presetOption(Option opt, boolean flag)
 		switch opt

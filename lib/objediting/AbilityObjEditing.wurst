@@ -13,6 +13,7 @@ public class AbilityDefinition
 	int lvls = 1
 	
 	AbilityTooltipGenerator tooltipGen = null
+	boolean listen = false
 	
 	construct(int newAbilityId, int origAbilityId)
 		def = createObjectDefinition("w3a", newAbilityId, origAbilityId)
@@ -27,13 +28,22 @@ public class AbilityDefinition
 			
 	function addTooltipProperty(string pName, IntLevelClosure lc)
 		addTooltipProperty(pName, (int lvl) -> lc.run(lvl).toString())
+		
 	function addTooltipProperty(string pName, RealLevelClosure lc)
 		addTooltipProperty(pName, (int lvl) -> lc.run(lvl).toString())
+		
 	function addTooltipProperty(string pName, BooleanLevelClosure lc)
 		addTooltipProperty(pName, (int lvl) -> lc.run(lvl).toString())
 		
 	function registerTooltipGegenrator(AbilityTooltipGenerator tgen)
 		tooltipGen = tgen
+		
+	function tgenStartListen()
+		listen = true
+		
+	function tgenStopListen()
+		listen = false
+		tooltipGen.applyToDef(this)
 		
 	function setName(string value)
 		def.setLvlDataString("anam", 0, 0, value)
@@ -69,12 +79,12 @@ public class AbilityDefinition
 		def.setLvlDataInt("arpy", 0, 0, value)
 		
 	function presetButtonPosNormal(int x, int y)
-		setButtonPositionNormalX(x)
-		setButtonPositionNormalY(y)
-		
-	function presetButtonPosTurnOff(int x, int y)
 		setButtonPositionTurnOffX(x)
 		setButtonPositionTurnOffY(y)
+		
+	function presetButtonPosTurnOff(int x, int y)
+		setButtonPositionResearchX(x)
+		setButtonPositionResearchY(y)
 		
 	function presetButtonPosResearch(int x, int y)
 		setButtonPositionResearchX(x)

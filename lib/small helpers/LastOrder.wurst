@@ -56,7 +56,8 @@ public class Order
 	real	y
 	
 	construct( unit ordered, int ordid, OrderType ordtype, widget target, real ordx, real ordy )
-		debugPrint("Allocated instance of Order with id: " + (this castTo int).toString(), 3)
+		debugPrint("Allocated instance of Order with : " + OrderId2String(ordid), 3)
+		
 		u   = ordered
 		id  = ordid
 		otype = ordtype
@@ -85,9 +86,6 @@ public class Order
 			else if otype == OrderType.IMMEDIATE
 				return IssueImmediateOrderById(u, id)
 		return false
-
-	ondestroy
-		debugPrint("ondestroy id: " + (this castTo int).toString(), 3)
 
 
 public function unit.clearLastOrders()
@@ -138,11 +136,10 @@ function conditions() returns boolean
 
 
 function actions()
-	if conditions()
+//	if conditions()
 		unit	u   = GetTriggerUnit()
 		widget  t   = GetOrderTarget()
 		int oid = GetIssuedOrderId()
-		debugPrint("actions: " + OrderId2String(oid), 3)
 		if GetTriggerEventId() == EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER
 			new Order(u, oid, OrderType.TARGET, t, GetWidgetX(t), GetWidgetY(t))
 		else if GetTriggerEventId() == EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER
