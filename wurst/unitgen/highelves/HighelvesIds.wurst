@@ -4,6 +4,7 @@ package HighelvesIds
 public constant WORKER_ID = 'yhwk'
 public constant ARCHER_ID = 'yhar'
 public constant FOOTMAN_ID = 'yhft'
+public constant BOAT_ID = 'yboa'
 
 // Buildings
 public constant HOUSE_ID = 'yhca'

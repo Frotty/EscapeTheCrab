@@ -16,6 +16,7 @@ public class Unit
 	int goldcost = 5
 	int lumbercost = 0
 	int buildtime = 5
+	real scale = 1.
 	
 	construct(int origId, int newId, string name)
 		def = new UnitDefinition(newId, origId)
@@ -31,7 +32,7 @@ public class Unit
 		..setGoldCost(goldcost)
 		..setLumberCost(lumbercost)
 		..setBuildTime(buildtime)
-		
+		..setScalingValue(scale)
 	
 
 public function initHEUnits(boolean c)
@@ -47,6 +48,9 @@ public function initHEUnits(boolean c)
 	b.damage = 2
 	b.hp = 8
 	b.cooldown = 0.45
+	
+	b = new Unit('hbot', BOAT_ID, "BOAT")
+	b.scale = 3.
 	
 	if c
 		var e = Unit.first

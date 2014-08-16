@@ -6,4 +6,5 @@ public class GECrab
 	
 	construct(vec2 pos)
 		crab = createUnit(DUMMY_HOSTILE_PLAYER, GECRAB_ID, pos, angle(0))
+		
 	
