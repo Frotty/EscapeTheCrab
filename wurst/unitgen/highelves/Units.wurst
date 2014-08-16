@@ -47,7 +47,7 @@ public function initHEUnits(boolean c)
 	b.modelpath = "units\\critters\\HighElfPeasant\\HighElfPeasant.mdl"
 	b.icon = "BTNBloodElfPeasant.blp"
 	
-	b = new Unit('earc', ARCHER_ID, "Archer")
+	b = new Unit('nbee', ARCHER_ID, "Archer")
 	b.damage = 2
 	b.hp = 8
 	b.cooldown = 0.45
