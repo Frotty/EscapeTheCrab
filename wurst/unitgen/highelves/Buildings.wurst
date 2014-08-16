@@ -54,6 +54,8 @@ public class Building
 		..setPlacementRequires("unwalkable")
 		..setTooltipBasic("Build " + name)
 		..setTooltipExtended(tooltipstring)
+		..setRace(Race.Human)
+		..setCategorizationCampaign(false)
 		if isupgrade
 			def.setTooltipBasic("Upgrade to " + name)
 		else
@@ -125,7 +127,19 @@ public function initHEBuildings(boolean c)
 	b.lumbercost = 50
 	b.isupgrade = true
 	
-	b = new Building('hhou', BASIC_TOWER_ID, "Tower")
+	b = new Building('hwtw', BASIC_TOWER_ID, "Tower")
+	b.foodproduced = 0
+	b.pathmap = "PathTextures\\4x4Unbuildable.tga"
+	b.modelpath = "buildings\\human\\HumanTower\\HumanTower.mdl"
+	b.icon = "BTNHumanWatchTower.blp"
+	b.hp = 200
+	b.buildtime = 15
+	b.foodused = 0
+	b.scale = 0.9
+	b.selectionscale = 1
+	b.lumbercost = 10
+	
+	b = new Building('hgtw', ARROW_TOWER_ID, "Arrow Tower")
 	b.foodproduced = 0
 	b.pathmap = "PathTextures\\4x4Unbuildable.tga"
 	b.modelpath = "buildings\\human\\HumanTower\\HumanTower.mdl"
@@ -150,14 +164,6 @@ public function initHEBuildings(boolean c)
 	b.selectionscale = 1
 	
 	
-//	b = new Building('hgtw', ARROWTOWER_ID, "Arrow Tower")
-//	BUILDING_ARROWTOWER = b
-//	
-//	b = new CBuilding('ngol', GOLDMINE_ID, "Goldmine")
-//	b.scale = 0.6
-//	b.selectionscale = 0.5
-//	
-//	BUILDING_GOLDMINE = b
 	if c
 		var e = Building.first
 		while e != null
