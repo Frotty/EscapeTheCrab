@@ -35,6 +35,7 @@ public class Unit
 		..setLumberCost(lumbercost)
 		..setBuildTime(buildtime)
 		..setScalingValue(scale)
+		..setAttack1TargetsAllowed("enemy")
 		if modelpath != "default"
 			def.setModelFile(modelpath)
 		if icon != "default"
@@ -42,12 +43,12 @@ public class Unit
 	
 
 public function initHEUnits(boolean c)
-	var b = new Unit('hpea', WORKER_ID, "Worker")
+	var b = new Unit('nbee', WORKER_ID, "Worker")
 	b.def.setStructuresBuilt(idInteger2IdString(HOUSE_ID))
 	b.modelpath = "units\\critters\\HighElfPeasant\\HighElfPeasant.mdl"
 	b.icon = "BTNBloodElfPeasant.blp"
 	
-	b = new Unit('nbee', ARCHER_ID, "Archer")
+	b = new Unit('nhea', ARCHER_ID, "Archer")
 	b.damage = 2
 	b.hp = 8
 	b.cooldown = 0.45
@@ -63,6 +64,7 @@ public function initHEUnits(boolean c)
 	
 	b = new Unit('hbot', BOAT_ID, "BOAT")
 	b.scale = 3.
+	b.hp = 1000
 	
 	if c
 		var e = Unit.first
