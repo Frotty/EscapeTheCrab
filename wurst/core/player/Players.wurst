@@ -17,7 +17,7 @@ public class PData
 		p.addGold(100)
 
 public function initPlayers()
-	for i = 0 to bj_MAX_PLAYERS-2
+	for i = 0 to bj_MAX_PLAYERS-3
 		if players[i].getSlotState() == PLAYER_SLOT_STATE_PLAYING
 			pDatas[i] = new PData(players[i])
 			allPlayers.add(pDatas[i])

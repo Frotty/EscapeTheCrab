@@ -13,6 +13,7 @@ class Crab
 	int damage = 2
 	real cooldown = 0.5
 	real scale = 1.
+	int range = 40
 	Race rce = Race.Critters
 	MovementType mtype = MovementType.Foot
 	
@@ -30,21 +31,27 @@ class Crab
 		..setScalingValue(scale)
 		..setMovementType(mtype)
 		..setSleeps(false)
+		..setAttack1Range(range)
 		
 public function initCrabs(boolean ct)
 	var c =  new Crab('nsc3', GECRAB_ID, "GIANT ENEMY CRAB")
 	c.hp = 999999999
-	c.damage = 100
-	c.cooldown = 1.
+	c.damage = 50
+	c.cooldown = 2.5
 	c.movespeed = 275
 	c.scale = 5
 	c.mtype = MovementType.Amphipic
+	c.range = 120
+	
 	c = new Crab('nsc1', CRABBY_ID, "Crabby")
 	c.movespeed = 350
 	
 	
 	c = new Crab('nscb', KINGLER_ID, "Kingler")
 	c.scale = 1.2
+	
+	c = new Crab('nqb2', PIGLET_ID, "Piglet")
+	c.scale = 0.8
 	
 	if ct
 		var e = Crab.first

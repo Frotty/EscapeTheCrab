@@ -12,7 +12,7 @@ public class Building
 	BuildingDefinition def
 	int id
 	int hp = 50
-	int goldcost = 10
+	int goldcost = 0
 	int lumbercost = 5
 	real scale = 1.
 	real selectionscale = 1.
@@ -25,6 +25,9 @@ public class Building
 	int foodproduced = 5
 	int foodused = 0
 	boolean isupgrade = false 
+	string tooltipstring = "nondescript"
+	
+	int repairlumbercost = 0
 	
 	construct(int origId, int newId, string name)
 		def = new BuildingDefinition(newId, origId)
@@ -41,7 +44,6 @@ public class Building
 		..setGoldCost(goldcost)
 		..setRepairGoldCost((goldcost/4).round())
 		..setLumberCost(lumbercost)
-		..setRepairLumberCost((lumbercost/4).round())
 		..setBuildTime(buildtime)
 		..setRepairTime(buildtime)
 		..setFoodProduced(foodproduced)
@@ -49,16 +51,22 @@ public class Building
 		..setFoodCost(foodused)
 		..setIconGameInterface("ReplaceableTextures\\CommandButtons\\" + icon)
 		..setTooltipExtended(tooltip)
+		..setPlacementRequires("unwalkable")
+		..setTooltipBasic("Build " + name)
+		..setTooltipExtended(tooltipstring)
 		if isupgrade
 			def.setTooltipBasic("Upgrade to " + name)
 		else
 			def.setTooltipBasic("Build " + name)
-	
+			
+		if repairlumbercost == 0
+			def..setRepairLumberCost((lumbercost/4).round())
+		else
+			def..setRepairLumberCost(repairlumbercost)
 
 public function initHEBuildings(boolean c)
 	var b = new Building('hhou', HOUSE_ID, "House")
-	b.def.setUnitsTrained(idInteger2IdString(WORKER_ID))
-	b.foodused = 1
+	b.def.setNormalAbilities("Arlm")
 	
 	b = new Building('hhou', BARRACKS_ID, "Barracks")
 	b.def.setUnitsTrained(idInteger2IdString(ARCHER_ID))
@@ -128,6 +136,18 @@ public function initHEBuildings(boolean c)
 	b.scale = 0.9
 	b.selectionscale = 1
 	b.lumbercost = 10
+	
+	b = new Building('hwtw', OBELISK_ID, "Obelisk")
+	b.foodproduced = 0
+	b.pathmap = "PathTextures\\4x4Unbuildable.tga"
+	b.modelpath = "buildings\\other\\ElvenGuardTower\\ElvenGuardTower.mdl"
+	b.icon = "BTNHumanWatchTower.blp"
+	b.hp = 1000
+	b.buildtime = 1
+	b.foodused = 0
+	b.scale = 0.9
+	b.repairlumbercost = 1
+	b.selectionscale = 1
 	
 	
 //	b = new Building('hgtw', ARROWTOWER_ID, "Arrow Tower")

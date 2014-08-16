@@ -1,0 +1,26 @@
+package IslandOne
+import HighelvesIds
+import Lightning
+import ClosureTimers
+constant BRIDGE = gg_dest_YT49_0243
+texttag t
+vec2 obelisk = vec2(200, 100)
+vec2 bridgemid
+
+unit ob
+
+public function startIslandOne()
+	bridgemid = vec2(BRIDGE.getX(), BRIDGE.getY())
+	SetDestructableLife(BRIDGE, 0)
+	ob = createUnit(Player(10), OBELISK_ID, obelisk, angle(0))
+	..setHP(10)
+	let l = addLightning("SPLK", false, obelisk.withZ(400), bridgemid.withZ(320))
+	doPeriodically(0.1, (CallbackPeriodic cb) -> begin
+		l.setColor(colorA(255,255,255,25+(ob.getHP() / ob.getMaxHP() * 230).toInt()))
+		if ob.getHP() / ob.getMaxHP() >= 0.99
+			print("Island One Done")
+			l.destr()
+			destroy cb
+			DestructableRestoreLife( BRIDGE, GetDestructableMaxLife(BRIDGE), true )
+			SetDestructableAnimation(BRIDGE, "brith")
+	end)

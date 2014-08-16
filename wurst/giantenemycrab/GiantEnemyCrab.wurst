@@ -6,5 +6,5 @@ public class GECrab
 	
 	construct(vec2 pos)
 		crab = createUnit(CRAB_PLAYER, GECRAB_ID, pos, angle(0))
-		
+		CreateFogModifierRectBJ( true, CRAB_PLAYER, FOG_OF_WAR_VISIBLE, GetPlayableMapRect() )
 	
