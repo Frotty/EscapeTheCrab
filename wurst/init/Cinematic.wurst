@@ -2,7 +2,10 @@ package Cinematic
 
 public constant CINEMATIC_SHIP_ID = 'hdes'
 
+vec2 start = vec2(4100, -600)
+
 function playCinematic()
+	SetSkyModel("Environment\\Sky\\BlizzardSky\\BlizzardSky.mdl")
 	CinematicModeBJ( true, GetPlayersAll() )
 	/*for p in GetPlayersAll()
     	SetCameraTargetControllerNoZForPlayer( p, GetTriggerUnit(), 0, 0, false )

@@ -14,6 +14,7 @@ class Crab
 	real cooldown = 0.5
 	real scale = 1.
 	Race rce = Race.Critters
+	MovementType mtype = MovementType.Foot
 	
 	construct(int origId, int newId, string name)
 		def = new UnitDefinition(newId, origId)
@@ -35,6 +36,7 @@ public function initCrabs(boolean ct)
 	c.cooldown = 1.
 	c.movespeed = 275
 	c.scale = 5
+	c.mtype = MovementType.Amphipic
 	
 	c = new Crab('nsc1', CRABBY_ID, "Crabby")
 	c.movespeed = 350
