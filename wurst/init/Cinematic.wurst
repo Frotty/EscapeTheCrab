@@ -48,6 +48,7 @@ public function playCinematic()
 						CinematicModeBJ( false, GetPlayersAll() )
 						for p in allPlayers
 							p.p.selectSingle(p.worker)
+						crab.startUpdate()
 					end)
 				end)
 			end)

@@ -1,10 +1,27 @@
 package GiantEnemyCrab
 import CrabIds
+import LastOrder
+import ClosureTimers
+import CrabWaypoints
+import Queue
 
 public class GECrab
 	unit crab
+	vec2 target
 	
 	construct(vec2 pos)
 		crab = createUnit(CRAB_PLAYER, GECRAB_ID, pos, angle(0))
+		
+	function startUpdate()
+		crab.issuePointOrder("attack", waypoints.peek().point)
+		doPeriodically(1., (CallbackPeriodic cb) -> begin
+			if distanceBetweenCoords(crab.getX(),crab.getY(),waypoints.peek().point.x,waypoints.peek().point.y) < 250.
+				waypoints.dequeue()
+				crab.issuePointOrder("attack", waypoints.peek().point)
+			if waypoints.peek() == null
+				destroy cb
+			if  crab.getPastOrders().dequeue().otype == OrderType.IMMEDIATE
+				crab.issuePointOrder("attack", waypoints.peek().point)
+		end)
 		
 	

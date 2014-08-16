@@ -69,7 +69,6 @@ public function initHEBuildings(boolean c)
 	b.icon = "BTNMageTower.blp"
 	b.hp = 150
 	b.buildtime = 15
-	b.foodused = 0
 	b.scale = 0.9
 	b.selectionscale = 3
 	b.lumbercost = 50
@@ -83,7 +82,6 @@ public function initHEBuildings(boolean c)
 	b.scale = 1.1
 	b.hp = 200
 	b.buildtime = 5
-	b.foodused = 0
 	b.selectionscale = 1
 	b.lumbercost = 10
 	
@@ -96,7 +94,6 @@ public function initHEBuildings(boolean c)
 	b.scale = 1.3
 	b.hp = 1000
 	b.buildtime = 10
-	b.foodused = 0
 	b.selectionscale = 1
 	b.lumbercost = 50
 	b.isupgrade = true
@@ -110,7 +107,7 @@ public function initHEBuildings(boolean c)
 	b.modelpath = "buildings\\human\\HumanTower\\HumanTower.mdl"
 	b.icon = "BTNHumanWatchTower.blp"
 	b.scale = 1.05
-	b.hp = 1000
+	b.hp = 2000
 	b.buildtime = 10
 	b.foodused = 0
 	b.selectionscale = 1
