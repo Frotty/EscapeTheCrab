@@ -1,0 +1,11 @@
+package Cinematic
+
+public constant CINEMATIC_SHIP_ID = 'hdes'
+
+function playCinematic()
+	CinematicModeBJ( true, GetPlayersAll() )
+	/*for p in GetPlayersAll()
+    	SetCameraTargetControllerNoZForPlayer( p, GetTriggerUnit(), 0, 0, false )
+   		CameraSetEQNoiseForPlayer( p, 3 )
+    	CameraClearNoiseForPlayer( p )
+*/

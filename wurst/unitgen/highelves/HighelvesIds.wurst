@@ -2,6 +2,8 @@ package HighelvesIds
 
 // Units
 public constant WORKER_ID = 'yhwk'
+public constant ARCHER_ID = 'yhar'
+public constant FOOTMAN_ID = 'yhft'
 
 // Buildings
 public constant HOUSE_ID = 'yhca'

@@ -1,0 +1,12 @@
+package EnemyIds
+
+//Naga
+
+//Units
+public constant SIREN_ID = 'nnsw'
+public constant MYRMIDON_ID = 'nmyr'
+public constant SERPENT_ID = 'nsnp'
+
+
+//Buildings
+public constant NAGA_WALL_ID = 'nnfm'
