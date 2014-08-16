@@ -7,6 +7,7 @@ import ClosureTimers
 import Entity
 import Cinematic
 import Players
+import CrabWaypoints
 
 function initResources(boolean compileTime)
 	initHEUnits(compileTime)
@@ -18,6 +19,7 @@ init
 		initResources(false)
 		initPlayers()
 		startEntityLoop()
+		initWayPoints()
 		playCinematic()
 	end)
 	

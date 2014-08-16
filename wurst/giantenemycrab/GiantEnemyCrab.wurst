@@ -9,6 +9,10 @@ public class GECrab
 	unit crab
 	vec2 target
 	
+	int spawnCrabby = 25
+	int spawnKingler = 45
+	int spawnPiglets = 120
+	
 	construct(vec2 pos)
 		crab = createUnit(CRAB_PLAYER, GECRAB_ID, pos, angle(0))
 		CreateFogModifierRectBJ( true, CRAB_PLAYER, FOG_OF_WAR_VISIBLE, GetPlayableMapRect() )
@@ -23,6 +27,26 @@ public class GECrab
 				crab.issuePointOrder("attack", waypoints.peek().point)
 			if waypoints.peek() == null
 				destroy cb
+				
+			spawnCrabby--
+			if spawnCrabby < 0
+				spawnCrabby = 25
+				addEffect("Objects\\Spawnmodels\\Naga\\NagaDeath\\NagaDeath.mdl", crab.getPos()).destr()
+				createUnit(CRAB_PLAYER, CRABBY_ID, crab.getPos()+vec2(0,50), angle(0)).issuePointOrder("attack", waypoints.peek().point)
+				createUnit(CRAB_PLAYER, CRABBY_ID, crab.getPos()+vec2(0,-50), angle(0)).issuePointOrder("attack", waypoints.peek().point)
+				
+			spawnKingler--
+			if spawnKingler < 0
+				spawnKingler = 45
+				addEffect("Objects\\Spawnmodels\\Naga\\NagaDeath\\NagaDeath.mdl", crab.getPos()).destr()
+				createUnit(CRAB_PLAYER, KINGLER_ID, crab.getPos(), angle(0)).issuePointOrder("attack", waypoints.peek().point)
+				
+			spawnPiglets--
+			if spawnPiglets < 0
+				spawnPiglets = 60
+				addEffect("Objects\\Spawnmodels\\Naga\\NagaDeath\\NagaDeath.mdl", crab.getPos()).destr()
+				for i = 0 to 10
+					createUnit(CRAB_PLAYER, KINGLER_ID, crab.getPos(), angle(0)).issuePointOrder("attack", waypoints.peek().point)
 		end)
 		
 	
