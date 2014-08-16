@@ -49,6 +49,20 @@ public function initHEBuildings(boolean c)
 	b.def.setUnitsTrained(idInteger2IdString(WORKER_ID))
 	b.foodused = 1
 	
+	b = new Building('hhou', BARRACKS_ID, "Barracks")
+	b.def.setUnitsTrained(idInteger2IdString(ARCHER_ID))
+	b.def.setUnitsTrained(idInteger2IdString(FOOTMAN_ID))
+	b.foodproduced = 0
+	b.pathmap = "PathTextures\\6x6Unbuildable.tga"
+	b.modelpath = "buildings\\other\\MageTower\\MageTower.mdl"
+	b.hp = 150
+	b.buildtime = 15
+	b.foodused = 0
+	b.scale = 0.8
+	b.selectionscale = 3
+	b.lumbercost = 50
+	
+	
 //	b = new Building('hgtw', ARROWTOWER_ID, "Arrow Tower")
 //	BUILDING_ARROWTOWER = b
 //	

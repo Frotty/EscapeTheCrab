@@ -9,3 +9,7 @@ public constant FOOTMAN_ID = 'yhft'
 public constant HOUSE_ID = 'yhca'
 public constant BARRACKS_ID = 'yhba'
 public constant TOK_ID = 'yhtk'
+
+//Ships
+public constant CINEMATIC_SHIP_ID = 'hdes'
+public constant SHIP_ID = 'hbot'
