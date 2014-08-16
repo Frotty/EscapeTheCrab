@@ -38,6 +38,7 @@ public class Building
 		..setLumberCost(lumbercost)
 		..setRepairLumberCost((lumbercost/4).round())
 		..setBuildTime(buildtime)
+		..setRepairTime(buildtime*2)
 		..setFoodProduced(foodproduced)
 		..setModelFile(modelpath)
 		..setFoodCost(foodused)
