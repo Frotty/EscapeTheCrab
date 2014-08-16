@@ -55,7 +55,7 @@ public function initHEUnits(boolean c)
 	b.hp = 100
 	
 	b = new Unit('nhea', ARCHER_ID, "Archer")
-	b.damage = 5
+	b.damage = 10
 	b.hp = 35
 	b.cooldown = 0.45
 	b.modelpath = "units\\creeps\\HighElfArcher\\HighElfArcher"
