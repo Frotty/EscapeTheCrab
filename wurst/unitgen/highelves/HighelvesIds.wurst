@@ -1,0 +1,9 @@
+package HighelvesIds
+
+// Units
+public constant WORKER_ID = 'yhwk'
+
+// Buildings
+public constant HOUSE_ID = 'yhca'
+public constant BARRACKS_ID = 'yhba'
+public constant TOK_ID = 'yhtk'

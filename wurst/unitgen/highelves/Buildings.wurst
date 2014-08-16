@@ -1,0 +1,64 @@
+package Buildings
+import LinkedListModule
+import UnitObjEditing
+import ObjectIds
+import HighelvesIds
+
+
+
+
+public class Building
+	use LinkedListModule
+	BuildingDefinition def
+	int id
+	int hp = 50
+	int goldcost = 10
+	int lumbercost = 5
+	real scale = 1.
+	real selectionscale = 1.
+	string pathmap = "PathTextures\\4x4Unbuildable.tga"
+	string modelpath = "buildings\\other\\ElvenFarm\\ElvenFarm.mdl"
+	int buildtime = 10
+	int foodproduced = 5
+	int foodused = 0
+	
+	construct(int origId, int newId, string name)
+		def = new BuildingDefinition(newId, origId)
+		def..setName(name)
+		this.id = newId
+
+	function generate()
+		def..setPathingMap(pathmap)
+		..setHitPointsMaximumBase(hp)
+		..setScalingValue(scale)
+		..setGroundTexture("")
+		..setSelectionScale(selectionscale)
+		..setGoldCost(goldcost)
+		..setRepairGoldCost((goldcost/4).round())
+		..setLumberCost(lumbercost)
+		..setRepairLumberCost((lumbercost/4).round())
+		..setBuildTime(buildtime)
+		..setFoodProduced(foodproduced)
+		..setModelFile(modelpath)
+		..setFoodCost(foodused)
+	
+// ============
+
+@compiletime function generateBuildings()
+	var b = new Building('hhou', HOUSE_ID, "House")
+	b.def.setUnitsTrained(idInteger2IdString(WORKER_ID))
+	b.foodused = 1
+	
+//	b = new Building('hgtw', ARROWTOWER_ID, "Arrow Tower")
+//	BUILDING_ARROWTOWER = b
+//	
+//	b = new CBuilding('ngol', GOLDMINE_ID, "Goldmine")
+//	b.scale = 0.6
+//	b.selectionscale = 0.5
+//	
+//	BUILDING_GOLDMINE = b
+	
+	var e = Building.first
+	while e != null
+		e.generate()
+		e = e.next

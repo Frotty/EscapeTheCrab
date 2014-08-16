@@ -1,7 +1,6 @@
 package Projectile
 import public Entity
 import Angle
-import CollisionDetection
 
 public class Projectile extends Entity
 	// Angles

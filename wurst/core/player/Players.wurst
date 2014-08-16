@@ -1,13 +1,12 @@
 package Players
 import LinkedList
 
-public int playerNumber = 4
+public int playercount = 0
 
 public LinkedList<PData> allPlayers = new LinkedList<PData>()
 public PData array pDatas
 
 public class PData
-	unit pickdummy
 	player p
 	int id
 
@@ -18,8 +17,8 @@ public class PData
 
 public function init_Players(boolean c)
 	if not c
-		for i = 0 to 4
+		for i = 0 to bj_MAX_PLAYERS-1
 			if players[i].getSlotState() == PLAYER_SLOT_STATE_PLAYING
 				pDatas[i] = new PData(players[i])
 				allPlayers.add(pDatas[i])
-	playerNumber = allPlayers.getSize()
+	playercount = allPlayers.getSize()
