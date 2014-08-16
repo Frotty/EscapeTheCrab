@@ -14,7 +14,7 @@ public constant WALL_2_ID = 'yhw2'
 public constant WALL_3_ID = 'yhw3'
 public constant BASIC_TOWER_ID = 'yhbt'
 public constant ARROW_TOWER_ID = 'yhat'
-public constant TOK_ID = 'yhtk'
+public constant CANNON_TOWER_ID = 'yhct'
 public constant OBELISK_ID = 'ybdd'
 
 //Ships

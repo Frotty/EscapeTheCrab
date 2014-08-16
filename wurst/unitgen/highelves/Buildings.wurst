@@ -73,8 +73,7 @@ public function initHEBuildings(boolean c)
 	b.def.setNormalAbilities("Arlm")
 	
 	b = new Building('hhou', BARRACKS_ID, "Barracks")
-	b.def.setUnitsTrained(idInteger2IdString(ARCHER_ID))
-	b.def.setUnitsTrained(idInteger2IdString(FOOTMAN_ID))
+	b.def.setUnitsTrained(idInteger2IdString(ARCHER_ID)+","+idInteger2IdString(FOOTMAN_ID))
 	b.foodproduced = 0
 	b.pathmap = "PathTextures\\6x6SimpleSolid.tga"
 	b.modelpath = "buildings\\other\\MageTower\\MageTower.mdl"
@@ -93,8 +92,8 @@ public function initHEBuildings(boolean c)
 	b.scale = 1.1
 	b.hp = 200
 	b.buildtime = 5
-	b.selectionscale = 1
-	b.lumbercost = 10
+	b.selectionscale = 2.5
+	b.lumbercost = 8
 	
 	b = new Building('hhou', WALL_2_ID, "Splendid Barricade")
 	b.def.setUpgradesTo(idInteger2IdString(WALL_3_ID))
@@ -104,8 +103,8 @@ public function initHEBuildings(boolean c)
 	b.scale = 1.3
 	b.hp = 1000
 	b.buildtime = 10
-	b.selectionscale = 1
-	b.lumbercost = 50
+	b.selectionscale = 2.5
+	b.lumbercost = 30
 	b.isupgrade = true
 	
 	b = new Building('hhou', WALL_3_ID, "Critterproof Wall")
@@ -119,11 +118,12 @@ public function initHEBuildings(boolean c)
 	b.hp = 2000
 	b.buildtime = 10
 	b.foodused = 0
-	b.selectionscale = 1
+	b.selectionscale = 2.5
 	b.lumbercost = 50
 	b.isupgrade = true
 	
 	b = new Building('hwtw', BASIC_TOWER_ID, "Tower")
+	b.def.setUpgradesTo(idInteger2IdString(ARROW_TOWER_ID)+","+idInteger2IdString(CANNON_TOWER_ID))
 	b.foodproduced = 0
 	b.modelpath = "buildings\\human\\HumanTower\\HumanTower.mdl"
 	b.icon = "BTNHumanWatchTower.blp"
@@ -131,7 +131,7 @@ public function initHEBuildings(boolean c)
 	b.buildtime = 15
 	b.foodused = 0
 	b.scale = 0.9
-	b.selectionscale = 1
+	b.selectionscale = 2.5
 	b.lumbercost = 10
 	
 	b = new Building('hgtw', ARROW_TOWER_ID, "Arrow Tower")
@@ -142,19 +142,34 @@ public function initHEBuildings(boolean c)
 	b.buildtime = 15
 	b.foodused = 0
 	b.scale = 0.9
-	b.selectionscale = 1
+	b.selectionscale = 2.5
 	b.lumbercost = 10
 	b.dmg = 15
+	b.isupgrade = true
+	
+	b = new Building('hctw', CANNON_TOWER_ID, "Cannon Tower")
+	b.def.setRequiredAnimationNames("second,upgrade")
+	b.foodproduced = 0
+	b.modelpath = "buildings\\human\\HumanTower\\HumanTower.mdl"
+	b.icon = "BTNCannonTower.blp"
+	b.hp = 200
+	b.buildtime = 15
+	b.foodused = 0
+	b.scale = 0.9
+	b.selectionscale = 2.5
+	b.lumbercost = 10
+	b.dmg = 15
+	b.isupgrade = true
 	
 	b = new Building('hwtw', OBELISK_ID, "Obelisk")
 	b.foodproduced = 0
 	b.modelpath = "buildings\\other\\ElvenGuardTower\\ElvenGuardTower.mdl"
 	b.icon = "BTNHumanWatchTower.blp"
 	b.hp = 1000
-	b.buildtime = 1
+	b.buildtime = 200
 	b.foodused = 0
 	b.scale = 0.9
-	b.repairlumbercost = 1
+	b.repairlumbercost = 400
 	b.selectionscale = 1
 	
 	
