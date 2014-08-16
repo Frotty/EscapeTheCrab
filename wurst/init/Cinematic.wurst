@@ -6,11 +6,11 @@ import SoundHelper
 import Players
 import IslandOne
 
-constant speed = 0.1
+constant speed = 1.
 public constant CINEMATIC_SHIP_ID = 'hdes'
 
 Sound sup = new Sound("sup.mp3", 2093, false)
-Sound gec = new Sound("gec.mp3", 116112, false)
+Sound gec = new Sound("gec.mp3", 116112, true)
 vec2 start = vec2(4800, -800)
 vec2 target = vec2(-600, -2200)
 

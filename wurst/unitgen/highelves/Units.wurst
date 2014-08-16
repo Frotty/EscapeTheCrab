@@ -37,7 +37,7 @@ public class Unit
 		..setLumberCost(lumbercost)
 		..setBuildTime(buildtime)
 		..setScalingValue(scale)
-		..setAttack1TargetsAllowed("enemy")
+		..setAttack1TargetsAllowed("debris,enemies")
 		..setTooltipBasic("Train " + name)
 		..setTooltipExtended("Very good against crabs, or nagas.")
 
@@ -55,16 +55,16 @@ public function initHEUnits(boolean c)
 	b.hp = 100
 	
 	b = new Unit('nhea', ARCHER_ID, "Archer")
-	b.damage = 2
-	b.hp = 8
+	b.damage = 5
+	b.hp = 35
 	b.cooldown = 0.45
 	b.modelpath = "units\\creeps\\HighElfArcher\\HighElfArcher"
 	b.icon = "BTNHighElvenArcher.blp"
 	
 	b = new Unit('hfoo', FOOTMAN_ID, "Footman")
-	b.damage = 2
-	b.hp = 8
-	b.cooldown = 0.45
+	b.damage = 15
+	b.hp = 75
+	b.cooldown = 0.65
 	b.modelpath = "units\\human\\TheCaptain\\TheCaptain.mdl"
 	b.icon = "BTNTheCaptain.blp"
 	

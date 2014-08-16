@@ -4,6 +4,7 @@ import LastOrder
 import ClosureTimers
 import CrabWaypoints
 import Queue
+import Players
 
 public class GECrab
 	unit crab
@@ -18,13 +19,25 @@ public class GECrab
 		CreateFogModifierRectBJ( true, CRAB_PLAYER, FOG_OF_WAR_VISIBLE, GetPlayableMapRect() )
 				
 	function startUpdate()
+		boolean dead = true
+		for p in allPlayers
+			if p.worker.isAlive()
+				dead = false
+				break
+		if dead
+			for p in allPlayers
+				CustomDefeatBJ(p.p, "You suck")
+		if not crab.isAlive()
+			for p in allPlayers
+				CustomVictoryBJ(p.p, true, true)
 		crab.issuePointOrder("attack", waypoints.peek().point)
 		doPeriodically(1., (CallbackPeriodic cb) -> begin
 			if distanceBetweenCoords(crab.getX(),crab.getY(),waypoints.peek().point.x,waypoints.peek().point.y) < 250.
 				waypoints.dequeue()
 				crab.issuePointOrder("attack", waypoints.peek().point)
-			if  crab.getPastOrders().dequeue().otype == OrderType.IMMEDIATE
+			else if crab.getPastOrders().dequeue().otype == OrderType.IMMEDIATE
 				crab.issuePointOrder("attack", waypoints.peek().point)
+				
 			if waypoints.peek() == null
 				destroy cb
 				
@@ -46,7 +59,7 @@ public class GECrab
 				spawnPiglets = 60
 				addEffect("Objects\\Spawnmodels\\Naga\\NagaDeath\\NagaDeath.mdl", crab.getPos()).destr()
 				for i = 0 to 10
-					createUnit(CRAB_PLAYER, KINGLER_ID, crab.getPos(), angle(0)).issuePointOrder("attack", waypoints.peek().point)
+					createUnit(CRAB_PLAYER, PIGLET_ID, crab.getPos(), angle(0)).issuePointOrder("attack", waypoints.peek().point)
 		end)
 		
 	

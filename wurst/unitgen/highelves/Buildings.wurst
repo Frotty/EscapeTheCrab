@@ -82,32 +82,34 @@ public function initHEBuildings(boolean c)
 	b.buildtime = 15
 	b.scale = 0.9
 	b.selectionscale = 3
-	b.lumbercost = 50
+	b.lumbercost = 30
 	
-	b = new Building('hhou', BASIC_WALL_ID, "Simple Barricade")
+	b = new Building('hgtw', BASIC_WALL_ID, "Simple Barricade")
 	b.def.setUpgradesTo(idInteger2IdString(WALL_2_ID))
 	b.foodproduced = 0
 	b.modelpath = "Doodads\\LordaeronSummer\\Terrain\\Barricade\\Barricade0.mdl"
 	b.icon = "BTNArcaniteArchitecture.blp"
 	b.scale = 1.1
-	b.hp = 200
+	b.hp = 150
 	b.buildtime = 5
 	b.selectionscale = 2.5
 	b.lumbercost = 8
+	b.dmg = 1
 	
-	b = new Building('hhou', WALL_2_ID, "Splendid Barricade")
+	b = new Building('hgtw', WALL_2_ID, "Splendid Barricade")
 	b.def.setUpgradesTo(idInteger2IdString(WALL_3_ID))
 	b.foodproduced = 0
 	b.modelpath = "Doodads\\LordaeronSummer\\Terrain\\Barricade\\Barricade1.mdl"
 	b.icon = "BTNArcaniteArchitecture.blp"
 	b.scale = 1.3
-	b.hp = 1000
+	b.hp = 250
 	b.buildtime = 10
 	b.selectionscale = 2.5
 	b.lumbercost = 30
 	b.isupgrade = true
+	b.dmg = 1
 	
-	b = new Building('hhou', WALL_3_ID, "Critterproof Wall")
+	b = new Building('hgtw', WALL_3_ID, "Critterproof Wall")
 	b.def.setTintingColorBlue(200)
 	b.def.setTintingColorRed(200)
 	b.def.setTintingColorGreen(200)
@@ -115,12 +117,13 @@ public function initHEBuildings(boolean c)
 	b.modelpath = "buildings\\human\\HumanTower\\HumanTower.mdl"
 	b.icon = "BTNHumanWatchTower.blp"
 	b.scale = 1.05
-	b.hp = 2000
+	b.hp = 750
 	b.buildtime = 10
 	b.foodused = 0
 	b.selectionscale = 2.5
 	b.lumbercost = 50
 	b.isupgrade = true
+	b.dmg = 1
 	
 	b = new Building('hwtw', BASIC_TOWER_ID, "Tower")
 	b.def.setUpgradesTo(idInteger2IdString(ARROW_TOWER_ID)+","+idInteger2IdString(CANNON_TOWER_ID))
@@ -166,7 +169,7 @@ public function initHEBuildings(boolean c)
 	b.modelpath = "buildings\\other\\ElvenGuardTower\\ElvenGuardTower.mdl"
 	b.icon = "BTNHumanWatchTower.blp"
 	b.hp = 1000
-	b.buildtime = 200
+	b.buildtime = 120
 	b.foodused = 0
 	b.scale = 0.9
 	b.repairlumbercost = 400
