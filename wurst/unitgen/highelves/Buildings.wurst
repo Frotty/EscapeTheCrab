@@ -109,8 +109,8 @@ public function initHEBuildings(boolean c)
 	
 	b = new Building('hhou', WALL_3_ID, "Critterproof Wall")
 	b.def.setTintingColorBlue(200)
-	b.def.setTintingColorRed(200)
 	b.def.setTintingColorGreen(200)
+	b.def.setTintingColorRed(200)
 	b.foodproduced = 0
 	b.modelpath = "buildings\\human\\HumanTower\\HumanTower.mdl"
 	b.icon = "BTNHumanWatchTower.blp"
@@ -135,6 +135,7 @@ public function initHEBuildings(boolean c)
 	b.lumbercost = 10
 	
 	b = new Building('hgtw', ARROW_TOWER_ID, "Arrow Tower")
+	b.def.setUpgradesTo(idInteger2IdString(ARROW_TOWER_2_ID))
 	b.foodproduced = 0
 	b.modelpath = "buildings\\human\\HumanTower\\HumanTower.mdl"
 	b.icon = "BTNHumanWatchTower.blp"
@@ -147,8 +148,24 @@ public function initHEBuildings(boolean c)
 	b.dmg = 15
 	b.isupgrade = true
 	
+	b = new Building('hga2', ARROW_TOWER_2_ID, "Super Arrow Tower")
+	b.def.setTintingColorBlue(150)
+	b.def.setTintingColorGreen(150)
+	b.foodproduced = 0
+	b.modelpath = "buildings\\human\\HumanTower\\HumanTower.mdl"
+	b.icon = "BTNHumanWatchTower.blp"
+	b.hp = 200
+	b.buildtime = 15
+	b.foodused = 0
+	b.scale = 0.9
+	b.selectionscale = 2.5
+	b.lumbercost = 20
+	b.dmg = 43
+	b.isupgrade = true
+	
 	b = new Building('hctw', CANNON_TOWER_ID, "Cannon Tower")
-	b.def.setRequiredAnimationNames("second,upgrade")
+	b.def.setUpgradesTo(idInteger2IdString(CANNON_TOWER_2_ID))
+	//b.def.setRequiredAnimationNames("second,upgrade")
 	b.foodproduced = 0
 	b.modelpath = "buildings\\human\\HumanTower\\HumanTower.mdl"
 	b.icon = "BTNCannonTower.blp"
@@ -157,8 +174,24 @@ public function initHEBuildings(boolean c)
 	b.foodused = 0
 	b.scale = 0.9
 	b.selectionscale = 2.5
-	b.lumbercost = 10
-	b.dmg = 15
+	b.lumbercost = 20
+	b.dmg = 25
+	b.isupgrade = true
+	
+	b = new Building('hctw', CANNON_TOWER_2_ID, "Super Cannon Tower")
+	b.def.setTintingColorBlue(150)
+	b.def.setTintingColorGreen(150)
+	//b.def.setRequiredAnimationNames("second,upgrade")
+	b.foodproduced = 0
+	b.modelpath = "buildings\\human\\HumanTower\\HumanTower.mdl"
+	b.icon = "BTNCannonTower.blp"
+	b.hp = 200
+	b.buildtime = 15
+	b.foodused = 0
+	b.scale = 0.9
+	b.selectionscale = 2.5
+	b.lumbercost = 30
+	b.dmg = 60
 	b.isupgrade = true
 	
 	b = new Building('hwtw', OBELISK_ID, "Obelisk")
