@@ -58,6 +58,7 @@ public class Building
 		..setRace(Race.Human)
 		..setCategorizationCampaign(false)
 		..setAttack1DamageBase(dmg)
+		..setRequirements("")
 		if isupgrade
 			def.setTooltipBasic("Upgrade to " + name)
 		else
@@ -141,7 +142,7 @@ public function initHEBuildings(boolean c)
 	b.def.setUpgradesTo(idInteger2IdString(ARROW_TOWER_2_ID))
 	b.foodproduced = 0
 	b.modelpath = "buildings\\human\\HumanTower\\HumanTower.mdl"
-	b.icon = "BTNHumanWatchTower.blp"
+	b.icon = "BTNGuardTower.blp"
 	b.hp = 200
 	b.buildtime = 15
 	b.foodused = 0
@@ -156,7 +157,7 @@ public function initHEBuildings(boolean c)
 	b.def.setTintingColorGreen(150)
 	b.foodproduced = 0
 	b.modelpath = "buildings\\human\\HumanTower\\HumanTower.mdl"
-	b.icon = "BTNHumanWatchTower.blp"
+	b.icon = "BTNGuardTower.blp"
 	b.hp = 200
 	b.buildtime = 15
 	b.foodused = 0
