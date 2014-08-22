@@ -37,7 +37,7 @@ public class Unit
 		..setLumberCost(lumbercost)
 		..setBuildTime(buildtime)
 		..setScalingValue(scale)
-		..setAttack1TargetsAllowed("debris,enemies,ground")
+		..setAttack1TargetsAllowed("debris,enemies,ground,structure")
 		..setTooltipBasic("Train " + name)
 		..setTooltipExtended("Very good against crabs, or nagas.")
 

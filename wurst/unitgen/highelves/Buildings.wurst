@@ -87,6 +87,8 @@ public function initHEBuildings(boolean c)
 	
 	b = new Building('hgtw', BASIC_WALL_ID, "Simple Barricade")
 	b.def.setUpgradesTo(idInteger2IdString(WALL_2_ID))
+	b.def.setAttack1ProjectileArt("")
+	b.def.setAttack1Range(128)
 	b.foodproduced = 0
 	b.modelpath = "Doodads\\LordaeronSummer\\Terrain\\Barricade\\Barricade0.mdl"
 	b.icon = "BTNArcaniteArchitecture.blp"
@@ -99,6 +101,8 @@ public function initHEBuildings(boolean c)
 	
 	b = new Building('hgtw', WALL_2_ID, "Splendid Barricade")
 	b.def.setUpgradesTo(idInteger2IdString(WALL_3_ID))
+	b.def.setAttack1ProjectileArt("")
+	b.def.setAttack1Range(128)
 	b.foodproduced = 0
 	b.modelpath = "Doodads\\LordaeronSummer\\Terrain\\Barricade\\Barricade1.mdl"
 	b.icon = "BTNArcaniteArchitecture.blp"
@@ -114,6 +118,8 @@ public function initHEBuildings(boolean c)
 	b.def.setTintingColorBlue(200)
 	b.def.setTintingColorGreen(200)
 	b.def.setTintingColorRed(200)
+	b.def.setAttack1ProjectileArt("")
+	b.def.setAttack1Range(128)
 	b.foodproduced = 0
 	b.modelpath = "buildings\\human\\HumanTower\\HumanTower.mdl"
 	b.icon = "BTNHumanWatchTower.blp"

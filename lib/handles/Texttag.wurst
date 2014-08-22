@@ -47,7 +47,7 @@ public function createTTEx(vec3 pos, string message, real size, colorA col ) ret
 		..setText( message, size )
 		..setPos(pos.toVec2().withZ(20.))
 		..setColor( col )
-		..setLifespan(2000) 
+		..setLifespan(9999999) 
 		..setPermanent(false)
 	
 public function createTTEx(vec3 pos, string message, real size, colorA col, player p ) returns texttag

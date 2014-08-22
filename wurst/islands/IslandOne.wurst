@@ -1,5 +1,6 @@
 package IslandOne
 import HighelvesIds
+import Texttag
 import Lightning
 import ClosureTimers
 constant BRIDGE = gg_dest_YT49_0243
@@ -15,6 +16,9 @@ public function startIslandOne()
 	ob = createUnit(Player(10), OBELISK_ID, obelisk, angle(0))
 	..setHP(10)
 	let l = addLightning("SPLK", false, obelisk.withZ(400), bridgemid.withZ(320))
+	createTTEx(vec3(-600,-900,200), "Repair the Obelisk to advance", 18, colorA(255,255,255,255))
+	createTTEx(vec3(2500,1200,200), "Buy a boat and chop through the rocks", 18, colorA(255,255,255,255))
+	createTTEx(vec3(-3700,2700,200), "Break through the Naga defenses", 18, colorA(255,255,255,255))
 	doPeriodically(0.1, (CallbackPeriodic cb) -> begin
 		l.setColor(colorA(255,255,255,25+(ob.getHP() / ob.getMaxHP() * 230).toInt()))
 		if ob.getHP() / ob.getMaxHP() >= 0.99
