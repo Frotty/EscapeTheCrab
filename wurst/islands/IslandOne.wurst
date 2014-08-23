@@ -1,5 +1,6 @@
 package IslandOne
 import HighelvesIds
+import Players
 import Texttag
 import Lightning
 import ClosureTimers
@@ -14,7 +15,7 @@ public function startIslandOne()
 	bridgemid = vec2(BRIDGE.getX(), BRIDGE.getY())
 	SetDestructableLife(BRIDGE, 0)
 	ob = createUnit(Player(10), OBELISK_ID, obelisk, angle(0))
-	..setHP(10)
+	ob.setHP((10 + (ob.getMaxHP()/20) * (10 - playercount)))
 	let l = addLightning("SPLK", false, obelisk.withZ(400), bridgemid.withZ(320))
 	createTTEx(vec3(-600,-900,200), "Repair the Obelisk to advance", 18, colorA(255,255,255,255))
 	createTTEx(vec3(2500,1200,200), "Buy a boat and chop through the rocks", 18, colorA(255,255,255,255))

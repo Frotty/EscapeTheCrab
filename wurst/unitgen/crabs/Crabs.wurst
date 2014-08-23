@@ -38,7 +38,7 @@ public function initCrabs(boolean ct)
 	c.hp = 999999999
 	c.damage = 50
 	c.cooldown = 2.5
-	c.movespeed = 200
+	c.movespeed = 185
 	c.scale = 5
 	c.range = 80
 	

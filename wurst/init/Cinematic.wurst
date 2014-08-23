@@ -10,7 +10,7 @@ constant speed = .1
 public constant CINEMATIC_SHIP_ID = 'hdes'
 
 Sound sup = new Sound("sup.mp3", 2093, false)
-Sound gec = new Sound("gec.mp3", 116112, true)
+Sound gec = new Sound("gec.mp3", 116112, false)
 vec2 start = vec2(4800, -800)
 vec2 target = vec2(-600, -2200)
 
@@ -50,6 +50,7 @@ public function playCinematic()
 				sup.play()
 				doAfter(2 * speed, () -> begin
 					gec.play()
+					doPeriodically(75, (CallbackPeriodic cb) -> gec.play())
 					doAfter(5 * speed, () -> begin
 						CameraSetupApplyForceDuration(gg_cam_Camera_004, true, 1.)
 						CinematicModeBJ( false, GetPlayersAll() )

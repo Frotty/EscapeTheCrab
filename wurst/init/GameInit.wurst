@@ -16,8 +16,8 @@ function initResources(boolean compileTime)
 
 init
 	doAfter(0.01, () -> begin
-		initResources(false)
 		initPlayers()
+		initResources(false)
 		startEntityLoop()
 		initWayPoints()
 		playCinematic()

@@ -12,10 +12,11 @@ public class GECrab
 	
 	int spawnCrabby = 25
 	int spawnKingler = 45
-	int spawnPiglets = 120
+	int spawnPiglets = 200
 	
 	construct(vec2 pos)
 		crab = createUnit(CRAB_PLAYER, GECRAB_ID, pos, angle(0))
+		crab.addAbility('Aeth')
 		CreateFogModifierRectBJ( true, CRAB_PLAYER, FOG_OF_WAR_VISIBLE, GetPlayableMapRect() )
 				
 	function startUpdate()
@@ -56,7 +57,7 @@ public class GECrab
 				
 			spawnPiglets--
 			if spawnPiglets < 0
-				spawnPiglets = 60
+				spawnPiglets = 100
 				addEffect("Objects\\Spawnmodels\\Naga\\NagaDeath\\NagaDeath.mdl", crab.getPos()).destr()
 				for i = 0 to 10
 					createUnit(CRAB_PLAYER, PIGLET_ID, crab.getPos(), angle(0)).issuePointOrder("attack", waypoints.peek().point)
