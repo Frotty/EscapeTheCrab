@@ -20,17 +20,7 @@ public class GECrab
 		CreateFogModifierRectBJ( true, CRAB_PLAYER, FOG_OF_WAR_VISIBLE, GetPlayableMapRect() )
 				
 	function startUpdate()
-		boolean dead = true
-		for p in allPlayers
-			if p.worker.isAlive()
-				dead = false
-				break
-		if dead
-			for p in allPlayers
-				CustomDefeatBJ(p.p, "You suck")
-		if not crab.isAlive()
-			for p in allPlayers
-				CustomVictoryBJ(p.p, true, true)
+
 		crab.issuePointOrder("attack", waypoints.peek().point)
 		doPeriodically(1., (CallbackPeriodic cb) -> begin
 			if distanceBetweenCoords(crab.getX(),crab.getY(),waypoints.peek().point.x,waypoints.peek().point.y) < 250.
@@ -41,6 +31,18 @@ public class GECrab
 				
 			if waypoints.peek() == null
 				destroy cb
+				
+			boolean dead = true
+			for p in allPlayers
+				if p.worker.isAlive()
+					dead = false
+					break
+			if dead
+				for p in allPlayers
+					CustomDefeatBJ(p.p, "You suck")
+			if not crab.isAlive()
+				for p in allPlayers
+					CustomVictoryBJ(p.p, true, true)
 				
 			spawnCrabby--
 			if spawnCrabby < 0
