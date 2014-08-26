@@ -25,7 +25,6 @@ public class Building
 	int foodproduced = 5
 	int foodused = 0
 	boolean isupgrade = false 
-	string tooltipstring = "nondescript"
 	int dmg = 0
 	
 	int repairlumbercost = 0
@@ -54,7 +53,6 @@ public class Building
 		..setTooltipExtended(tooltip)
 		..setPlacementRequires("unwalkable")
 		..setTooltipBasic("Build " + name)
-		..setTooltipExtended(tooltipstring)
 		..setRace(Race.Human)
 		..setCategorizationCampaign(false)
 		..setAttack1DamageBase(dmg)
@@ -85,6 +83,7 @@ public function initHEBuildings(boolean c)
 	b.scale = 0.9
 	b.selectionscale = 3
 	b.lumbercost = 30
+	b.tooltip = "Trains soldiers; build your army against the dangers ahead!"
 	
 	b = new Building('hgtw', BASIC_WALL_ID, "Simple Barricade")
 	b.def.setUpgradesTo(idInteger2IdString(WALL_2_ID))
@@ -99,6 +98,7 @@ public function initHEBuildings(boolean c)
 	b.selectionscale = 2.5
 	b.lumbercost = 8
 	b.dmg = 1
+	b.tooltip = "However this rather could be called a \"Pile of boxes\" than a barricade, it will still hold the voracious crabs outside for a while."
 	
 	b = new Building('hgtw', WALL_2_ID, "Splendid Barricade")
 	b.def.setUpgradesTo(idInteger2IdString(WALL_3_ID))
@@ -114,6 +114,7 @@ public function initHEBuildings(boolean c)
 	b.lumbercost = 30
 	b.isupgrade = true
 	b.dmg = 1
+	b.tooltip = "If there is a perfect of a kind, this is one. A barricade that shows stability, and structure. Upgrade to it right away!"
 	
 	b = new Building('hgtw', WALL_3_ID, "Critterproof Wall")
 	b.def.setTintingColorBlue(200)
@@ -132,6 +133,7 @@ public function initHEBuildings(boolean c)
 	b.lumbercost = 50
 	b.isupgrade = true
 	b.dmg = 1
+	b.tooltip = "A modern perfection. So massive, so dense, that it will keep them critters out for a decade. You can believe me, because it is made in China."
 	
 	b = new Building('hwtw', BASIC_TOWER_ID, "Tower")
 	b.def.setUpgradesTo(idInteger2IdString(ARROW_TOWER_ID)+","+idInteger2IdString(CANNON_TOWER_ID))
@@ -144,6 +146,7 @@ public function initHEBuildings(boolean c)
 	b.scale = 0.9
 	b.selectionscale = 2.5
 	b.lumbercost = 10
+	b.tooltip = "This one is good for scouting in the distance. It can also be upgraded to towers that can pew-pew!"
 	
 	b = new Building('hgtw', ARROW_TOWER_ID, "Arrow Tower")
 	b.def.setUpgradesTo(idInteger2IdString(ARROW_TOWER_2_ID))
@@ -210,6 +213,18 @@ public function initHEBuildings(boolean c)
 	b.modelpath = "buildings\\other\\ElvenGuardTower\\ElvenGuardTower.mdl"
 	b.icon = "BTNHumanWatchTower.blp"
 	b.hp = 1000
+	b.buildtime = 120
+	b.foodused = 0
+	b.scale = 0.9
+	b.repairlumbercost = 400
+	b.selectionscale = 1
+	
+	b = new Building('hwtw', REV_STONE_ID, "Resurrection Stone")
+	b.def.setNormalAbilities("Avul")
+	b.foodproduced = 0
+	b.modelpath = "buildings\\other\\HornOfCenarius\\HornOfCenarius.mdl"
+	b.icon = "BTNHumanWatchTower.blp"
+	b.hp = 10000
 	b.buildtime = 120
 	b.foodused = 0
 	b.scale = 0.9

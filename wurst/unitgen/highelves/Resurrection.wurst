@@ -1,0 +1,70 @@
+package Resurrection
+
+import HighelvesIds
+import LinkedListModule
+import ClosureTimers
+import LinkedList
+
+constant range = 200.
+constant acceleration = 0.05
+LinkedList<Ghost> ghosts = new LinkedList<Ghost>()
+LinkedList<RevStone> revstones = new LinkedList<RevStone>()
+
+
+public class RevStone
+	boolean activated= false
+	unit stone
+	
+	construct(vec2 pos)
+		stone = CreateUnit(Player(10), REV_STONE_ID,pos.x,pos.y,270.)
+		trigger rangeTrigger = CreateTrigger()
+		rangeTrigger.registerUnitInRangeSource(stone, range, null)
+		rangeTrigger.addAction(function onStoneRange)
+	
+	static function onStoneRange()
+		var ston = GetTriggeringTrigger().getSource() 
+		var near = GetTriggerUnit()
+		if near.getTypeId() == WORKER_ID
+			for revstone in revstones
+				if ston == revstone.stone
+					revstone.activated = true
+					var bug = 0
+					for g in ghosts
+						g.ghost.setPropWindow(0.)
+						g.ghost.setPathing(false)
+						doPeriodically(0.03, (CallbackPeriodic cb) ->begin
+							if distanceBetweenCoords(g.ghost.getX(),g.ghost.getY(),revstone.stone.getX(),revstone.stone.getY()) > 100
+								if g.speed < 100
+									g.speed += acceleration
+								var ang = angleBetweenCoords(g.ghost.getX(),g.ghost.getY(),revstone.stone.getX(),revstone.stone.getY()).radians() + 0.9
+								g.ghost.setX(g.ghost.getX() + g.speed*Cos(ang))
+								g.ghost.setY(g.ghost.getY() + g.speed*Sin(ang))
+							else
+								g.revive()
+								destroy cb
+							bug += 1
+							bug = ModuloInteger(bug, 20)
+							print("ur shitting me " + bug.toString())
+						end)
+				
+				
+public class Ghost
+	unit ghost
+	real speed = 0
+	bool revived = false
+	 
+	construct(unit worker)
+		ghost = CreateUnit(worker.getOwner(),GHOST_ID,worker.getX(),worker.getY(), 0.)
+	
+	function revive()
+		if not revived
+			CreateUnit(ghost.getOwner(),WORKER_ID,ghost.getX(),ghost.getY(), 0.)
+			ghost.kill()
+		
+
+public function initResurrection()
+	revstones.add(new RevStone(vec2(2700,1300)))
+	revstones.add(new RevStone(vec2(-3500,3100)))
+	revstones.add(new RevStone(vec2(-4900,-5200)))
+	ghosts.add(new Ghost(CreateUnit(Player(0),WORKER_ID,-900.,-1200.,0.)))
+	CreateUnit(Player(0),WORKER_ID,900.,1800.,0.)
