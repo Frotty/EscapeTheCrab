@@ -26,9 +26,8 @@ public class RevStone
 		var near = GetTriggerUnit()
 		if near.getTypeId() == WORKER_ID
 			for revstone in revstones
-				if ston == revstone.stone
+				if ston == revstone.stone and not revstone.activated
 					revstone.activated = true
-					var bug = 0
 					for g in ghosts
 						g.ghost.setPropWindow(0.)
 						g.ghost.setPathing(false)
@@ -42,9 +41,6 @@ public class RevStone
 							else
 								g.revive()
 								destroy cb
-							bug += 1
-							bug = ModuloInteger(bug, 20)
-							print("ur shitting me " + bug.toString())
 						end)
 				
 				
@@ -60,11 +56,16 @@ public class Ghost
 		if not revived
 			CreateUnit(ghost.getOwner(),WORKER_ID,ghost.getX(),ghost.getY(), 0.)
 			ghost.kill()
+			destroy this
 		
+function workerDeath()
+	if GetDyingUnit().getTypeId() == WORKER_ID
+		ghosts.add(new Ghost(GetDyingUnit()))
 
 public function initResurrection()
 	revstones.add(new RevStone(vec2(2700,1300)))
 	revstones.add(new RevStone(vec2(-3500,3100)))
 	revstones.add(new RevStone(vec2(-4900,-5200)))
-	ghosts.add(new Ghost(CreateUnit(Player(0),WORKER_ID,-900.,-1200.,0.)))
-	CreateUnit(Player(0),WORKER_ID,900.,1800.,0.)
+	trigger deathtrig= CreateTrigger()
+	deathtrig.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DEATH)
+	deathtrig.addAction(function workerDeath)
