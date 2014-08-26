@@ -72,6 +72,11 @@ public function initHEUnits(boolean c)
 	b.scale = 3.
 	b.hp = 1000
 	
+	b = new Unit('hbot', BUYSHIP_ID, "Yacht")
+	b.scale = .7
+	b.hp = 300
+	b.lumbercost = 100
+	
 	b = new Unit('ushd', GHOST_ID, "Ghost")
 	b.hp = 5
 	b.movespeed = 330

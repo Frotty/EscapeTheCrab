@@ -1,7 +1,6 @@
 package Resurrection
 
 import HighelvesIds
-import LinkedListModule
 import ClosureTimers
 import LinkedList
 

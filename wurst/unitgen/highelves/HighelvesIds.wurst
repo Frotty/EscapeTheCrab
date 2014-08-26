@@ -5,6 +5,7 @@ public constant WORKER_ID = 'yhwk'
 public constant ARCHER_ID = 'yhar'
 public constant FOOTMAN_ID = 'yhft'
 public constant BOAT_ID = 'yboa'
+public constant BUYSHIP_ID = 'yshi'
 
 public constant GHOST_ID = 'ygho'
 
@@ -19,8 +20,9 @@ public constant ARROW_TOWER_ID = 'yhat'
 public constant ARROW_TOWER_2_ID = 'yha2'
 public constant CANNON_TOWER_ID = 'yhct'
 public constant CANNON_TOWER_2_ID = 'yhc2'
+
 public constant OBELISK_ID = 'ybdd'
 public constant REV_STONE_ID = 'yrst'
+public constant SHIPYARD_ID = 'yshy'
 
 //Ships
-public constant CINEMATIC_SHIP_ID = 'hdes'

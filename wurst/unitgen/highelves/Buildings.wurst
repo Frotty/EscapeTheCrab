@@ -221,6 +221,8 @@ public function initHEBuildings(boolean c)
 	
 	b = new Building('hwtw', REV_STONE_ID, "Resurrection Stone")
 	b.def.setNormalAbilities("Avul")
+	b.def.setSightRadiusNight(1)
+	b.def.setSightRadiusDay(1)
 	b.foodproduced = 0
 	b.modelpath = "buildings\\other\\HornOfCenarius\\HornOfCenarius.mdl"
 	b.icon = "BTNHumanWatchTower.blp"
@@ -231,6 +233,12 @@ public function initHEBuildings(boolean c)
 	b.repairlumbercost = 400
 	b.selectionscale = 1
 	
+	b = new Building('nshp', SHIPYARD_ID, "Redneck Shipyard")
+	b.def.setUnitsSold(idInteger2IdString(BUYSHIP_ID))
+	b.foodproduced = 0
+	b.modelpath = "buildings\\other\\GoblinShipyard\\GoblinShipyard.mdl"
+	b.icon = "BTNHumanWatchTower.blp"
+	b.hp = 10000
 	
 	if c
 		var e = Building.first
