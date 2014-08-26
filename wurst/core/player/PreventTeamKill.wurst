@@ -1,9 +1,0 @@
-package PreventTeamKill
-import DamageDetection
-import DamageMod
-
-init
-	addOnDamageFunc(Condition(() -> begin
-		if GetAttacker().getOwner().isAllyOf(GetTriggerUnit().getOwner())
-			modifyDamage(0) 
-	end))

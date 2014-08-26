@@ -52,7 +52,9 @@ init
 		let leavingUnit = GetFilterUnit()
 		if leavingUnit.getAbilityLevel(ABILITY_ID) == 0
 			tempUnit = leavingUnit
-			destroy tempUnit.getUserData() castTo UnitIndex
+			let data = tempUnit.getUserData()
+			if DO_INDEXING and data != 0
+				destroy data castTo UnitIndex
 			eventTrigger.execute()
 			tempUnit = null
 	end)

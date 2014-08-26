@@ -1,5 +1,6 @@
 package GameInit
 import MapStuff
+import PreventTeamKill
 import Units
 import Buildings
 import Crabs
@@ -23,6 +24,7 @@ init
 		initWayPoints()
 		playCinematic()
 		initResurrection()
+		initPR()
 	end)
 	
 @compiletime function generateObjects()

@@ -6,7 +6,7 @@ import SoundHelper
 import Players
 import IslandOne
 
-constant speed = .1
+constant speed = .01
 public constant CINEMATIC_SHIP_ID = 'hdes'
 
 Sound sup = new Sound("sup.mp3", 2093, false)
