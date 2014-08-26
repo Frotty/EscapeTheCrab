@@ -8,6 +8,7 @@ import Entity
 import Cinematic
 import Players
 import CrabWaypoints
+import Resurrection
 
 function initResources(boolean compileTime)
 	initHEUnits(compileTime)
@@ -21,6 +22,7 @@ init
 		startEntityLoop()
 		initWayPoints()
 		playCinematic()
+		initResurrection()
 	end)
 	
 @compiletime function generateObjects()
