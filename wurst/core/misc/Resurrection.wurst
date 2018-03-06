@@ -1,6 +1,7 @@
 package Resurrection
 import HighelvesIds
 import ClosureTimers
+import Assets
 import Entity
 import Interpolation
 
@@ -12,25 +13,25 @@ LinkedList<RevStone> revstones = new LinkedList<RevStone>()
 
 public class RevStone extends UnitEntity
 	boolean activated= false
-	unit stone
 	
 	construct(vec2 pos)
 		super(CreateUnit(Player(10), REV_STONE_ID,pos.x,pos.y, 270.))
 		trigger rangeTrigger = CreateTrigger()
-		rangeTrigger.registerUnitInRangeSource(stone, range, null)
+		rangeTrigger.registerUnitInRangeSource(actor, range, null)
 		rangeTrigger.addAction(function onStoneRange)
 	
 	static function onStoneRange()
 		var ston = GetTriggeringTrigger().getSource().getEntity() castTo RevStone
 		var near = GetTriggerUnit()
 		if near.getTypeId() == WORKER_ID and not ston.activated
+			flashEffect(Abilities.reviveDemon, ston.actor.getPos())
 			ston.activated = true
 			for g in ghosts
 				g.ghost.setPropWindow(0.)
 				g.ghost.setPathing(false)
 				doPeriodically(0.03, (CallbackPeriodic cb) ->begin
-					if g.ghost.getPos().distanceTo(ston.stone.getPos()) > 100
-						g.ghost.setXY(g.ghost.getPos().lerp(ston.stone.getPos(), 0.5))
+					if g.ghost.getPos().distanceTo(ston.actor.getPos()) > 100
+						g.ghost.setXY(g.ghost.getPos().lerp(ston.actor.getPos(), 0.15))
 					else
 						g.revive()
 						destroy cb
@@ -65,3 +66,4 @@ public function initResurrection()
 	trigger deathtrig= CreateTrigger()
 	deathtrig.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DEATH)
 	deathtrig.addAction(function workerDeath)
+	ghosts.add(new Ghost(createUnit(players[0], 'hfoo', vec2(0,0), angle(0))))

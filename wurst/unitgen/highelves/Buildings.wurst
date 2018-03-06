@@ -79,7 +79,7 @@ public function initHEBuildings(boolean c)
 	b.modelpath = "buildings\\other\\MageTower\\MageTower.mdl"
 	b.icon = "BTNMageTower.blp"
 	b.hp = 150
-	b.buildtime = 8
+	b.buildtime = 6
 	b.scale = 0.9
 	b.selectionscale = 3
 	b.lumbercost = 30
@@ -92,9 +92,9 @@ public function initHEBuildings(boolean c)
 	b.foodproduced = 0
 	b.modelpath = "Doodads\\LordaeronSummer\\Terrain\\Barricade\\Barricade0.mdl"
 	b.icon = "BTNArcaniteArchitecture.blp"
-	b.scale = 1.1
+	b.scale = 1.0
 	b.hp = 150
-	b.buildtime = 4
+	b.buildtime = 3
 	b.selectionscale = 2.5
 	b.lumbercost = 8
 	b.dmg = 1
@@ -108,10 +108,10 @@ public function initHEBuildings(boolean c)
 	b.modelpath = "Doodads\\LordaeronSummer\\Terrain\\Barricade\\Barricade1.mdl"
 	b.icon = "BTNArcaniteArchitecture.blp"
 	b.scale = 1.3
-	b.hp = 250
-	b.buildtime = 6
+	b.hp = 350
+	b.buildtime = 5
 	b.selectionscale = 2.5
-	b.lumbercost = 30
+	b.lumbercost = 25
 	b.isupgrade = true
 	b.dmg = 1
 	b.tooltip = "If there is a perfect of a kind, this is one. A barricade that shows stability, and structure. Upgrade to it right away!"
@@ -127,10 +127,10 @@ public function initHEBuildings(boolean c)
 	b.icon = "BTNHumanWatchTower.blp"
 	b.scale = 1.05
 	b.hp = 750
-	b.buildtime = 8
+	b.buildtime = 7
 	b.foodused = 0
 	b.selectionscale = 2.5
-	b.lumbercost = 50
+	b.lumbercost = 45
 	b.isupgrade = true
 	b.dmg = 1
 	b.tooltip = "A modern perfection. So massive, so dense, that it will keep them critters out for a decade. You can believe me, because it is made in China."
@@ -140,8 +140,8 @@ public function initHEBuildings(boolean c)
 	b.foodproduced = 0
 	b.modelpath = "buildings\\human\\HumanTower\\HumanTower.mdl"
 	b.icon = "BTNHumanWatchTower.blp"
-	b.hp = 200
-	b.buildtime = 6
+	b.hp = 100
+	b.buildtime = 4
 	b.foodused = 0
 	b.scale = 0.9
 	b.selectionscale = 2.5
@@ -168,7 +168,7 @@ public function initHEBuildings(boolean c)
 	b.foodproduced = 0
 	b.modelpath = "buildings\\human\\HumanTower\\HumanTower.mdl"
 	b.icon = "BTNGuardTower.blp"
-	b.hp = 200
+	b.hp = 350
 	b.buildtime = 10
 	b.foodused = 0
 	b.scale = 0.9
@@ -183,7 +183,7 @@ public function initHEBuildings(boolean c)
 	b.foodproduced = 0
 	b.modelpath = "buildings\\human\\HumanTower\\HumanTower.mdl"
 	b.icon = "BTNCannonTower.blp"
-	b.hp = 200
+	b.hp = 350
 	b.buildtime = 10
 	b.foodused = 0
 	b.scale = 0.9
@@ -199,7 +199,7 @@ public function initHEBuildings(boolean c)
 	b.foodproduced = 0
 	b.modelpath = "buildings\\human\\HumanTower\\HumanTower.mdl"
 	b.icon = "BTNCannonTower.blp"
-	b.hp = 200
+	b.hp = 500
 	b.buildtime = 12
 	b.foodused = 0
 	b.scale = 0.9

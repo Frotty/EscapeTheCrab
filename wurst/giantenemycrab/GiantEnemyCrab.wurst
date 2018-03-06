@@ -13,9 +13,9 @@ public class GECrab
 	unit crab
 	vec2 target
 	
-	int spawnCrabby = 15
-	int spawnKingler = 35
-	int spawnPiglets = 180
+	int spawnCrabby = 25
+	int spawnKingler = 45
+	int spawnPiglets = 200
 	int count = 0
 	int reorderCount = 20
 	
@@ -56,9 +56,11 @@ public class GECrab
 				if spawnCrabby < 0
 					spawnCrabby = 15
 					addEffect("Objects\\Spawnmodels\\Naga\\NagaDeath\\NagaDeath.mdl", crab.getPos()).destr()
-					var crabby = createUnit(CRAB_PLAYER, CRABBY_ID, crab.getPos()+vec2(0,50), angle(0))..issuePointOrder("attack", waypoints.getFirst().point)
-					addUnitBonus(crabby, Bonus.DAMAGE, count)
-					crabby = createUnit(CRAB_PLAYER, CRABBY_ID, crab.getPos()+vec2(0,-50), angle(0))..issuePointOrder("attack", waypoints.getFirst().point)
+					var crabby = createUnit(CRAB_PLAYER, CRABBY_ID, crab.getPos()+vec2(0,50), angle(0))..issuePointOrder("attack", waypoints.getFirst().point)..setUserData(1)
+					..setTimedLife(120.)
+					addUnitBonus(crabby, Bonus.DAMAGE, (count/5.).round())
+					crabby = createUnit(CRAB_PLAYER, CRABBY_ID, crab.getPos()+vec2(0,-50), angle(0))..issuePointOrder("attack", waypoints.getFirst().point)..setUserData(1)
+					..setTimedLife(120.)
 					addUnitBonus(crabby, Bonus.LIFE, count)
 					count++
 					
@@ -66,19 +68,21 @@ public class GECrab
 				if spawnKingler < 0
 					spawnKingler = 35
 					addEffect("Objects\\Spawnmodels\\Naga\\NagaDeath\\NagaDeath.mdl", crab.getPos()).destr()
-					let kingler = createUnit(CRAB_PLAYER, KINGLER_ID, crab.getPos(), angle(0))..issuePointOrder("attack", waypoints.getFirst().point)
+					let kingler = createUnit(CRAB_PLAYER, KINGLER_ID, crab.getPos(), angle(0))..issuePointOrder("attack", waypoints.getFirst().point)..setUserData(1)
+					..setTimedLife(120.)
 					addUnitBonus(kingler, Bonus.LIFE, (count.toReal() * 2.).round())
 					addUnitBonus(kingler, Bonus.ATTACKSPEED, (count.toReal() * 0.2).round())
 					count++
 					
 				spawnPiglets--
 				if spawnPiglets < 0
-					spawnPiglets = 150
+					spawnPiglets = 250
 					addEffect("Objects\\Spawnmodels\\Naga\\NagaDeath\\NagaDeath.mdl", crab.getPos()).destr()
 					addUnitBonus(crab, Bonus.ATTACKSPEED, (count.toReal() * 0.5).round())
 					SetUnitMoveSpeed(crab, GetUnitMoveSpeed(crab)+25)
 					for i = 0 to 10
-						createUnit(CRAB_PLAYER, PIGLET_ID, crab.getPos(), angle(0)).issuePointOrder("attack", waypoints.getFirst().point)
+						createUnit(CRAB_PLAYER, PIGLET_ID, crab.getPos(), angle(0))..issuePointOrder("attack", waypoints.getFirst().point)..setUserData(1)
+						..setTimedLife(120.)
 			end)
 		end)
 		
