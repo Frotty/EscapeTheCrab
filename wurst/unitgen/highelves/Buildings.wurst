@@ -71,6 +71,7 @@ public function initHEBuildings(boolean c)
 	var b = new Building('hhou', HOUSE_ID, "House")
 	b.def.setNormalAbilities("Arlm")
 	b.buildtime = 5
+	b.hp = 80
 	
 	b = new Building('hhou', BARRACKS_ID, "Barracks")
 	b.def.setUnitsTrained(int2fourchar(ARCHER_ID)+","+int2fourchar(FOOTMAN_ID))
@@ -78,10 +79,10 @@ public function initHEBuildings(boolean c)
 	b.pathmap = "PathTextures\\6x6SimpleSolid.tga"
 	b.modelpath = "buildings\\other\\MageTower\\MageTower.mdl"
 	b.icon = "BTNMageTower.blp"
-	b.hp = 150
+	b.hp = 250
 	b.buildtime = 6
 	b.scale = 0.9
-	b.selectionscale = 3
+	b.selectionscale = 2.
 	b.lumbercost = 30
 	b.tooltip = "Trains soldiers; build your army against the dangers ahead!"
 	
@@ -95,7 +96,7 @@ public function initHEBuildings(boolean c)
 	b.scale = 1.0
 	b.hp = 150
 	b.buildtime = 3
-	b.selectionscale = 2.5
+	b.selectionscale = 2.0
 	b.lumbercost = 8
 	b.dmg = 1
 	b.tooltip = "However this rather could be called a \"Pile of boxes\" than a barricade, it will still hold the voracious crabs outside for a while."
@@ -110,7 +111,7 @@ public function initHEBuildings(boolean c)
 	b.scale = 1.3
 	b.hp = 350
 	b.buildtime = 5
-	b.selectionscale = 2.5
+	b.selectionscale = 2.0
 	b.lumbercost = 25
 	b.isupgrade = true
 	b.dmg = 1
@@ -129,7 +130,7 @@ public function initHEBuildings(boolean c)
 	b.hp = 750
 	b.buildtime = 7
 	b.foodused = 0
-	b.selectionscale = 2.5
+	b.selectionscale = 2.0
 	b.lumbercost = 45
 	b.isupgrade = true
 	b.dmg = 1
@@ -144,7 +145,7 @@ public function initHEBuildings(boolean c)
 	b.buildtime = 4
 	b.foodused = 0
 	b.scale = 0.9
-	b.selectionscale = 2.5
+	b.selectionscale = 2.0
 	b.lumbercost = 10
 	b.tooltip = "This one is good for scouting in the distance. It can also be upgraded to towers that can pew-pew!"
 	
@@ -157,12 +158,12 @@ public function initHEBuildings(boolean c)
 	b.buildtime = 8
 	b.foodused = 0
 	b.scale = 0.9
-	b.selectionscale = 2.5
+	b.selectionscale = 2.0
 	b.lumbercost = 10
 	b.dmg = 15
 	b.isupgrade = true
 	
-	b = new Building('hga2', ARROW_TOWER_2_ID, "Super Arrow Tower")
+	b = new Building('hgtw', ARROW_TOWER_2_ID, "Super Arrow Tower")
 	b.def.setTintingColorBlue(150)
 	b.def.setTintingColorGreen(150)
 	b.foodproduced = 0
@@ -172,7 +173,7 @@ public function initHEBuildings(boolean c)
 	b.buildtime = 10
 	b.foodused = 0
 	b.scale = 0.9
-	b.selectionscale = 2.5
+	b.selectionscale = 2.0
 	b.lumbercost = 20
 	b.dmg = 43
 	b.isupgrade = true
@@ -187,7 +188,7 @@ public function initHEBuildings(boolean c)
 	b.buildtime = 10
 	b.foodused = 0
 	b.scale = 0.9
-	b.selectionscale = 2.5
+	b.selectionscale = 2.0
 	b.lumbercost = 20
 	b.dmg = 25
 	b.isupgrade = true
@@ -203,7 +204,7 @@ public function initHEBuildings(boolean c)
 	b.buildtime = 12
 	b.foodused = 0
 	b.scale = 0.9
-	b.selectionscale = 2.5
+	b.selectionscale = 2.0
 	b.lumbercost = 30
 	b.dmg = 60
 	b.isupgrade = true

@@ -10,7 +10,7 @@ constant speed = 0.89
 public constant CINEMATIC_SHIP_ID = 'hdes'
 
 let sup = new SoundDefinition("sup.mp3", false)
-let gec = new SoundDefinition("gec.mp3", false)
+let gec = new SoundDefinition("gec.mp3", true)
 vec2 start = vec2(4800, -800)
 vec2 target = vec2(-600, -2200)
 

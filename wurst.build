@@ -4,6 +4,6 @@ dependencies:
 - "https://github.com/wurstscript/wurstStdlib2"
 - "https://github.com/frotty/frentity"
 buildMapData:
-  name: "EscapeTheCrab019"
-  fileName: "EscapeTheCrab019"
+  name: "EscapeTheCrab019d"
+  fileName: "EscapeTheCrab019d"
   author: "Frotty"
