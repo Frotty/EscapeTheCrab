@@ -1,8 +1,8 @@
 package Resurrection
-
 import HighelvesIds
 import ClosureTimers
-import LinkedList
+import Entity
+import Interpolation
 
 constant range = 200.
 constant acceleration = 0.05
@@ -10,37 +10,31 @@ LinkedList<Ghost> ghosts = new LinkedList<Ghost>()
 LinkedList<RevStone> revstones = new LinkedList<RevStone>()
 
 
-public class RevStone
+public class RevStone extends UnitEntity
 	boolean activated= false
 	unit stone
 	
 	construct(vec2 pos)
-		stone = CreateUnit(Player(10), REV_STONE_ID,pos.x,pos.y,270.)
+		super(CreateUnit(Player(10), REV_STONE_ID,pos.x,pos.y, 270.))
 		trigger rangeTrigger = CreateTrigger()
 		rangeTrigger.registerUnitInRangeSource(stone, range, null)
 		rangeTrigger.addAction(function onStoneRange)
 	
 	static function onStoneRange()
-		var ston = GetTriggeringTrigger().getSource() 
+		var ston = GetTriggeringTrigger().getSource().getEntity() castTo RevStone
 		var near = GetTriggerUnit()
-		if near.getTypeId() == WORKER_ID
-			for revstone in revstones
-				if ston == revstone.stone and not revstone.activated
-					revstone.activated = true
-					for g in ghosts
-						g.ghost.setPropWindow(0.)
-						g.ghost.setPathing(false)
-						doPeriodically(0.03, (CallbackPeriodic cb) ->begin
-							if distanceBetweenCoords(g.ghost.getX(),g.ghost.getY(),revstone.stone.getX(),revstone.stone.getY()) > 100
-								if g.speed < 100
-									g.speed += acceleration
-								var ang = angleBetweenCoords(g.ghost.getX(),g.ghost.getY(),revstone.stone.getX(),revstone.stone.getY()).radians() + 0.9
-								g.ghost.setX(g.ghost.getX() + g.speed*Cos(ang))
-								g.ghost.setY(g.ghost.getY() + g.speed*Sin(ang))
-							else
-								g.revive()
-								destroy cb
-						end)
+		if near.getTypeId() == WORKER_ID and not ston.activated
+			ston.activated = true
+			for g in ghosts
+				g.ghost.setPropWindow(0.)
+				g.ghost.setPathing(false)
+				doPeriodically(0.03, (CallbackPeriodic cb) ->begin
+					if g.ghost.getPos().distanceTo(ston.stone.getPos()) > 100
+						g.ghost.setXY(g.ghost.getPos().lerp(ston.stone.getPos(), 0.5))
+					else
+						g.revive()
+						destroy cb
+				end)
 				
 				
 public class Ghost
@@ -50,16 +44,19 @@ public class Ghost
 	 
 	construct(unit worker)
 		ghost = CreateUnit(worker.getOwner(),GHOST_ID,worker.getX(),worker.getY(), 0.)
+		worker.getOwner()..select(ghost).panCamToTimed(ghost, 0.25)
 	
 	function revive()
 		if not revived
-			CreateUnit(ghost.getOwner(),WORKER_ID,ghost.getX(),ghost.getY(), 0.)
+			let u = CreateUnit(ghost.getOwner(),WORKER_ID,ghost.getX(),ghost.getY(), 0.)
+			ghost.getOwner()..select(u).panCamToTimed(u, 0.25)
 			ghost.kill()
 			destroy this
 		
 function workerDeath()
 	if GetDyingUnit().getTypeId() == WORKER_ID
 		ghosts.add(new Ghost(GetDyingUnit()))
+		printTimed(GetDyingUnit().getOwner().getNameColored() + " died! Activate a Ressurrection Stone to revive them.", 10.)
 
 public function initResurrection()
 	revstones.add(new RevStone(vec2(2700,1300)))

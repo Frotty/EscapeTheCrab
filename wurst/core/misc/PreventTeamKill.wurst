@@ -1,6 +1,6 @@
 package PreventTeamKill
 import DamageDetection
-import DamageMod
+import DmgMod
 
 public function initPR()
 	addOnDamageFunc(Condition(() -> begin

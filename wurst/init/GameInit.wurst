@@ -1,15 +1,14 @@
 package GameInit
-import MapStuff
 import PreventTeamKill
 import Units
 import Buildings
 import Crabs
 import ClosureTimers
-import Entity
 import Cinematic
 import Players
 import CrabWaypoints
 import Resurrection
+import EntityManagement
 
 function initResources(boolean compileTime)
 	initHEUnits(compileTime)
@@ -22,9 +21,9 @@ init
 		initResources(false)
 		startEntityLoop()
 		initWayPoints()
-		playCinematic()
 		initResurrection()
 		initPR()
+		playCinematic()
 	end)
 	
 @compiletime function generateObjects()

@@ -1,0 +1,9 @@
+---
+projectName: "EscapeTheCrab"
+dependencies:
+- "https://github.com/wurstscript/wurstStdlib2"
+- "https://github.com/frotty/frentity"
+buildMapData:
+  name: "EscapeTheCrab018"
+  fileName: "EscapeTheCrab018"
+  author: "Frotty"

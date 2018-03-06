@@ -21,4 +21,4 @@ public function initPlayers()
 		if players[i].getSlotState() == PLAYER_SLOT_STATE_PLAYING
 			pDatas[i] = new PData(players[i])
 			allPlayers.add(pDatas[i])
-	playercount = allPlayers.getSize()
+	playercount = allPlayers.size()

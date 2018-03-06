@@ -1,6 +1,6 @@
 package CrabWaypoints
 
-import Queue
+import LinkedList
 
 class Waypoint
 	vec2 point
@@ -8,20 +8,20 @@ class Waypoint
 	construct(vec2 v)
 		point = v
 
-public Queue<Waypoint> waypoints = new Queue<Waypoint>()
+public LinkedList<Waypoint> waypoints = new LinkedList<Waypoint>()
 
 
 public function initWayPoints()
-	waypoints.enqueue(new Waypoint(vec2(-900,-1800)))
-	waypoints.enqueue(new Waypoint(vec2(-300,-100)))
-	waypoints.enqueue(new Waypoint(vec2(3000,1300)))
-	waypoints.enqueue(new Waypoint(vec2(3200,3000)))
-	waypoints.enqueue(new Waypoint(vec2(600,4000)))
-	waypoints.enqueue(new Waypoint(vec2(-3700,3000)))
-	waypoints.enqueue(new Waypoint(vec2(-4200,0)))
-	waypoints.enqueue(new Waypoint(vec2(-4000,-4000)))
-	waypoints.enqueue(new Waypoint(vec2(-2000,-4800)))
-	waypoints.enqueue(new Waypoint(vec2(-4200,-3800)))
-	waypoints.enqueue(new Waypoint(vec2(2000,-3600)))
-	waypoints.enqueue(new Waypoint(vec2(3200,-4500)))
-	waypoints.enqueue(new Waypoint(vec2(4500,-3200)))
+	waypoints.add(new Waypoint(vec2(-800,-2000)))
+	waypoints.add(new Waypoint(vec2(300,-40)))
+	waypoints.add(new Waypoint(vec2(2500,1500)))
+	waypoints.add(new Waypoint(vec2(-2600,3500)))
+	waypoints.add(new Waypoint(vec2(-2000,-4800)))
+	waypoints.add(new Waypoint(vec2(-4000,-4000)))
+	waypoints.add(new Waypoint(vec2(-4200,0)))
+	waypoints.add(new Waypoint(vec2(-3700,3000)))
+	waypoints.add(new Waypoint(vec2(600,4000)))
+	waypoints.add(new Waypoint(vec2(3200,3000)))
+	waypoints.add(new Waypoint(vec2(3000,1300)))
+	waypoints.add(new Waypoint(vec2(-300,-100)))
+	waypoints.add(new Waypoint(vec2(-900,-1800)))

@@ -73,7 +73,7 @@ public function initHEBuildings(boolean c)
 	b.buildtime = 5
 	
 	b = new Building('hhou', BARRACKS_ID, "Barracks")
-	b.def.setUnitsTrained(idInteger2IdString(ARCHER_ID)+","+idInteger2IdString(FOOTMAN_ID))
+	b.def.setUnitsTrained(int2fourchar(ARCHER_ID)+","+int2fourchar(FOOTMAN_ID))
 	b.foodproduced = 0
 	b.pathmap = "PathTextures\\6x6SimpleSolid.tga"
 	b.modelpath = "buildings\\other\\MageTower\\MageTower.mdl"
@@ -86,7 +86,7 @@ public function initHEBuildings(boolean c)
 	b.tooltip = "Trains soldiers; build your army against the dangers ahead!"
 	
 	b = new Building('hgtw', BASIC_WALL_ID, "Simple Barricade")
-	b.def.setUpgradesTo(idInteger2IdString(WALL_2_ID))
+	b.def.setUpgradesTo(int2fourchar(WALL_2_ID))
 	b.def.setAttack1ProjectileArt("")
 	b.def.setAttack1Range(128)
 	b.foodproduced = 0
@@ -101,7 +101,7 @@ public function initHEBuildings(boolean c)
 	b.tooltip = "However this rather could be called a \"Pile of boxes\" than a barricade, it will still hold the voracious crabs outside for a while."
 	
 	b = new Building('hgtw', WALL_2_ID, "Splendid Barricade")
-	b.def.setUpgradesTo(idInteger2IdString(WALL_3_ID))
+	b.def.setUpgradesTo(int2fourchar(WALL_3_ID))
 	b.def.setAttack1ProjectileArt("")
 	b.def.setAttack1Range(128)
 	b.foodproduced = 0
@@ -136,7 +136,7 @@ public function initHEBuildings(boolean c)
 	b.tooltip = "A modern perfection. So massive, so dense, that it will keep them critters out for a decade. You can believe me, because it is made in China."
 	
 	b = new Building('hwtw', BASIC_TOWER_ID, "Tower")
-	b.def.setUpgradesTo(idInteger2IdString(ARROW_TOWER_ID)+","+idInteger2IdString(CANNON_TOWER_ID))
+	b.def.setUpgradesTo(int2fourchar(ARROW_TOWER_ID)+","+int2fourchar(CANNON_TOWER_ID))
 	b.foodproduced = 0
 	b.modelpath = "buildings\\human\\HumanTower\\HumanTower.mdl"
 	b.icon = "BTNHumanWatchTower.blp"
@@ -149,7 +149,7 @@ public function initHEBuildings(boolean c)
 	b.tooltip = "This one is good for scouting in the distance. It can also be upgraded to towers that can pew-pew!"
 	
 	b = new Building('hgtw', ARROW_TOWER_ID, "Arrow Tower")
-	b.def.setUpgradesTo(idInteger2IdString(ARROW_TOWER_2_ID))
+	b.def.setUpgradesTo(int2fourchar(ARROW_TOWER_2_ID))
 	b.foodproduced = 0
 	b.modelpath = "buildings\\human\\HumanTower\\HumanTower.mdl"
 	b.icon = "BTNGuardTower.blp"
@@ -178,7 +178,7 @@ public function initHEBuildings(boolean c)
 	b.isupgrade = true
 	
 	b = new Building('hctw', CANNON_TOWER_ID, "Cannon Tower")
-	b.def.setUpgradesTo(idInteger2IdString(CANNON_TOWER_2_ID))
+	b.def.setUpgradesTo(int2fourchar(CANNON_TOWER_2_ID))
 	//b.def.setRequiredAnimationNames("second,upgrade")
 	b.foodproduced = 0
 	b.modelpath = "buildings\\human\\HumanTower\\HumanTower.mdl"
@@ -234,7 +234,7 @@ public function initHEBuildings(boolean c)
 	b.selectionscale = 1
 	
 	b = new Building('nshp', SHIPYARD_ID, "Redneck Shipyard")
-	b.def.setUnitsSold(idInteger2IdString(BUYSHIP_ID))
+	b.def.setUnitsSold(int2fourchar(BUYSHIP_ID))
 	b.foodproduced = 0
 	b.modelpath = "buildings\\other\\GoblinShipyard\\GoblinShipyard.mdl"
 	b.icon = "BTNHumanWatchTower.blp"

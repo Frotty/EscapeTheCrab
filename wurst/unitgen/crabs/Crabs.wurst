@@ -32,11 +32,12 @@ class Crab
 		..setMovementType(mtype)
 		..setSleeps(false)
 		..setAttack1Range(range)
+		..setCollisionSize(16)
 		
 public function initCrabs(boolean ct)
 	var c =  new Crab('nsc3', GECRAB_ID, "GIANT ENEMY CRAB")
 	c.hp = 999999999
-	c.damage = 50
+	c.damage = 75
 	c.cooldown = 2.5
 	c.movespeed = 185
 	c.scale = 5
@@ -48,12 +49,12 @@ public function initCrabs(boolean ct)
 	
 	c = new Crab('nsc2', KINGLER_ID, "Kingler")
 	c.scale = 1.2
-	c.hp = 100
+	c.hp = 120
 	
 	c = new Crab('nqb2', PIGLET_ID, "Piglet")
 	c.scale = 0.8
 	c.hp = 25
-	c.movespeed = 400
+	c.movespeed = 350
 
 	if ct
 		var e = Crab.first

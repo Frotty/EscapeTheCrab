@@ -2,20 +2,26 @@ package Cinematic
 import ClosureTimers
 import HighelvesIds
 import GiantEnemyCrab
-import SoundHelper
+import SoundUtils
 import Players
 import IslandOne
 
-constant speed = .01
+constant speed = 0.89
 public constant CINEMATIC_SHIP_ID = 'hdes'
 
-Sound sup = new Sound("sup.mp3", 2093, false)
-Sound gec = new Sound("gec.mp3", 116112, false)
+let sup = new SoundDefinition("sup.mp3", false)
+let gec = new SoundDefinition("gec.mp3", false)
 vec2 start = vec2(4800, -800)
 vec2 target = vec2(-600, -2200)
 
+init
+	sup.duration = 2093
+	gec.duration = 116112
+
 public function playCinematic()
 	SetSkyModel("Environment\\Sky\\BlizzardSky\\GenericSky.mdl")
+	ClearMapMusic()
+	StopMusic(false)
 	let dummy = createUnit(Player(1), 'nbee', vec2(0,0), angle(0) )
 	let dummy2 = createUnit(Player(10), 'hcth', vec2(0,0), angle(0) )
 	let boat = createUnit(Player(10), BOAT_ID, start, angle(180*DEGTORAD) )
@@ -53,12 +59,14 @@ public function playCinematic()
 					doPeriodically(75, (CallbackPeriodic cb) -> gec.play())
 					doAfter(5 * speed, () -> begin
 						CameraSetupApplyForceDuration(gg_cam_Camera_004, true, 1.)
-						CinematicModeBJ( false, GetPlayersAll() )
+						CinematicModeBJ( false, GetPlayersAll())
 						for p in allPlayers
 							p.p.selectSingle(p.worker)
 						crab.startUpdate()
 							
 						startIslandOne()
+						ClearMapMusic()
+						StopMusic(false)
 					end)
 				end)
 			end)
