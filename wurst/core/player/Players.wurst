@@ -1,15 +1,68 @@
 package Players
+import HighelvesIds
 import LinkedList
+import Lodash
+import LodashExtensions
+import CrabWaypoints
 
 public int playercount = 0
 
-public LinkedList<PData> allPlayers = new LinkedList<PData>()
+public constant allPlayers = new LinkedList<PData>().own()
 public PData array pDatas
+
+class DistanceToWaypoint
+	real distSq
+	Waypoint waypoint
+
+	/**
+		If the source unit is null, the distance is calculated as a very large
+		number.
+	*/
+	construct(unit source, Waypoint waypoint)
+		this.distSq = source == null ? 100000000. : source.getPos().distanceToSq(waypoint.point)
+		this.waypoint = waypoint
+
+	/**
+		Throw away the greater data, and return the lesser.
+	*/
+	function min(DistanceToWaypoint other) returns DistanceToWaypoint
+		if this.distSq < other.distSq
+			destroy other
+			return this
+		else
+			destroy this
+			return other
+
+	function intoWaypoint() returns Waypoint
+		let res = this.waypoint
+		destroy this
+		return res
+
+public class Worker
+	unit worker
+	Waypoint nearestWaypoint
+
+	construct(player forWhom, vec2 where)
+		this.worker = createUnit(forWhom, WORKER_ID, where, angle(0))
+		this.nearestWaypoint = waypoints.getFirst()
+
+	function recalcNearestWaypoint()
+		// Cleanup of DistanceToWaypoint instances is delegated to `min`.
+		FoldClosure<DistanceToWaypoint, DistanceToWaypoint> comparator = (DistanceToWaypoint acc, DistanceToWaypoint val) -> acc.min(val)
+
+		this.nearestWaypoint = allWaypoints
+			.map(wp -> new DistanceToWaypoint(this.worker, wp))
+			// The closure is responsible for cleaning up the DistanceTos, but
+			// not the underlyin Waypoints.
+			.foldl(
+				new DistanceToWaypoint(null, null),
+				comparator)
+			.intoWaypoint()
 
 public class PData
 	player p
 	int id
-	unit worker
+	Worker worker
 
 	construct(player p)
 		this.p = p

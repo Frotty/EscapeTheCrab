@@ -3,10 +3,69 @@ import CrabIds
 import ClosureTimers
 import CrabWaypoints
 import LinkedList
+import Lodash
 import Players
 import BonusHandler
 import Execute
 import ClosureForGroups
+
+// How long to wait before the next all-unit order.  Seconds.
+constant REORDER_PERIOD = 25.
+
+// How long to wait between iterations of unit handling.  Seconds.
+constant WORK_PERIOD = 1.
+
+constant fakeWaypoint = new Waypoint(10000, vec2(0., 0.))
+// Find a target based on the live player worker that lags behind the most.
+function getCreepTarget() returns vec2
+	// The workers are owned by the static players list, and the waypoints are
+	// owned by the static waypoints list.  Only the comparator should be
+	// detroyed.
+	FoldClosure<Worker, Waypoint> comparator = (Worker acc, Waypoint val) -> begin
+		Waypoint ret
+		if acc.nearestWaypoint.seq < val.seq
+			ret = acc.nearestWaypoint
+		else
+			ret = val
+
+		return ret
+	end
+
+	return allPlayers
+		.map(p -> p.worker)
+		.filter(w -> not w.worker == null and w.worker.isAlive())
+		.forEach((Worker t) -> t.recalcNearestWaypoint())
+		.foldl(
+			fakeWaypoint,
+			comparator)
+		.point
+
+constant distances = asOwnedList(256., 512., 512., 1024., 1024., 1024., 1024., 2048.)
+constant grp = CreateGroup()
+unit source
+// Order this unit to roughly attack the target, using some modifiers:
+// -   If there are adjacent enemy units, attack those instead.
+// -   If the target is far away, use the move order.
+// -   If the target at a variable medium distance, use the attack ground order.
+function unit.creepOrder(vec2 target)
+	source = this
+	grp.enumUnitsInRange(
+		this.getPos(),
+		256.,
+		Filter(() -> begin
+			return source.isEnemyOf(GetFilterUnit().getOwner()) and
+				GetFilterUnit().isAlive()
+		end))
+
+	if grp.hasNext()
+		this.issuePointOrder("attack", grp.next().getPos())
+	else
+		let threshold = distances..shuffle().getFirst()
+
+		if this.getPos().distanceToSq(target) > threshold * threshold
+			this.issuePointOrder("move", target)
+		else
+			this.issuePointOrder("attack", target)
 
 public class GECrab
 	unit crab
@@ -16,7 +75,7 @@ public class GECrab
 	int spawnKingler = 35
 	int spawnPiglets = 65
 	int count = 0
-	int reorderCount = 25
+	var reorderCount = 0.
 
 	construct(vec2 pos)
 		crab = createUnit(CRAB_PLAYER, GECRAB_ID, pos, angle(0))
@@ -25,28 +84,31 @@ public class GECrab
 		// CreateFogModifierRectBJ( true, CRAB_PLAYER, FOG_OF_WAR_VISIBLE, GetPlayableMapRect() )
 
 	function startUpdate()
-		crab.issuePointOrder("attack", waypoints.getFirst().point)
 		doPeriodically(10.) (CallbackPeriodic cb) ->
-			crab.issuePointOrder("attack", waypoints.getFirst().point)
 			addUnitBonus(crab, Bonus.DAMAGE, 2)
 			addUnitBonus(crab, Bonus.ATTACKSPEED, 2)
 
-		doPeriodically(1., (CallbackPeriodic cb) -> begin
+		doPeriodically(WORK_PERIOD, (CallbackPeriodic cb) -> begin
 			execute(() -> begin
+				// Update the current waypoint.
 				if waypoints.size() > 0 and crab.getPos().distanceTo(waypoints.getFirst().point) < 300.
 					waypoints.dequeue()
-				reorderCount--
-				if reorderCount < 0
-					reorderCount = 25
-					forUnitsOfPlayer(crab.getOwner(), (unit u) -> begin
-						if u.getUserData() > 0
-							u.issuePointOrder("attack", waypoints.getFirst().point)
-					end)
-					crab.issuePointOrder("attack", waypoints.getFirst().point)
 
+				// AI.
+				reorderCount -= WORK_PERIOD
+				if reorderCount < 0.
+					reorderCount = REORDER_PERIOD
+
+					// Find a target.
+					let target = getCreepTarget()
+
+					// Order all units.
+					forUnitsOfPlayer(crab.getOwner(), (unit u) -> u.creepOrder(target))
+
+				// Victory/lose conditions.
 				boolean dead = true
 				for p in allPlayers
-					if p.worker.isAlive()
+					if p.worker.worker.isAlive()
 						dead = false
 						break
 				if dead
@@ -56,6 +118,7 @@ public class GECrab
 					for p in allPlayers
 						CustomVictoryBJ(p.p, true, true)
 
+				// Minion unit spawns.
 				spawnCrabby--
 				if spawnCrabby < 0
 					spawnCrabby = max(16, spawnKingler-1)
@@ -92,4 +155,3 @@ public class GECrab
 						addUnitBonus(pig, Bonus.LIFE, (count.toReal() * 2.).round())
 			end)
 		end)
-

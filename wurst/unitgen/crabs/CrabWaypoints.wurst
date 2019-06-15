@@ -1,27 +1,30 @@
 package CrabWaypoints
 
 import LinkedList
+import Lodash
+import LodashExtensions
 
-class Waypoint
+public class Waypoint
+	int seq
 	vec2 point
 
-	construct(vec2 v)
+	construct(int seq, vec2 v)
+		this.seq = seq
 		point = v
 
-public LinkedList<Waypoint> waypoints = new LinkedList<Waypoint>()
+public constant waypoints = new LinkedList<Waypoint>()
+	..add(new Waypoint(1,  vec2( -800., -2000.)))
+	..add(new Waypoint(2,  vec2( -600.,   100.)))
+	..add(new Waypoint(3,  vec2(  800.,  -100.)))
+	..add(new Waypoint(4,  vec2( 1700.,   800.)))
+	..add(new Waypoint(5,  vec2( 3200.,  3100.)))
+	..add(new Waypoint(6,  vec2(  700.,  3800.)))
+	..add(new Waypoint(7,  vec2(-2100.,  3500.)))
+	..add(new Waypoint(8,  vec2(-3300.,  3300.)))
+	..add(new Waypoint(9,  vec2(-4000.,  1300.)))
+	..add(new Waypoint(10, vec2(-4000., -1000.)))
+	..add(new Waypoint(11, vec2(-4200., -4300.)))
+	..add(new Waypoint(12, vec2( 1200., -4100.)))
+	..add(new Waypoint(13, vec2( 4200., -3500.)))
 
-
-public function initWayPoints()
-	waypoints.add(new Waypoint(vec2(-800,-2000)))
-	waypoints.add(new Waypoint(vec2(-600,100)))
-	waypoints.add(new Waypoint(vec2(800,-100)))
-	waypoints.add(new Waypoint(vec2(1700,800)))
-	waypoints.add(new Waypoint(vec2(3200,3100)))
-	waypoints.add(new Waypoint(vec2(700,3800)))
-	waypoints.add(new Waypoint(vec2(-2100,3500)))
-	waypoints.add(new Waypoint(vec2(-3300,3300)))
-	waypoints.add(new Waypoint(vec2(-4000,1300)))
-	waypoints.add(new Waypoint(vec2(-4000,-1000)))
-	waypoints.add(new Waypoint(vec2(-4200,-4300)))
-	waypoints.add(new Waypoint(vec2(1200,-4100)))
-	waypoints.add(new Waypoint(vec2(4200,-3500)))
+public constant allWaypoints = waypoints.copy().own()
