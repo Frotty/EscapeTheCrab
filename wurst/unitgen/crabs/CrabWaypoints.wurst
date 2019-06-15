@@ -4,7 +4,7 @@ import LinkedList
 
 class Waypoint
 	vec2 point
-	
+
 	construct(vec2 v)
 		point = v
 
@@ -13,14 +13,15 @@ public LinkedList<Waypoint> waypoints = new LinkedList<Waypoint>()
 
 public function initWayPoints()
 	waypoints.add(new Waypoint(vec2(-800,-2000)))
-	waypoints.add(new Waypoint(vec2(-600,300)))
-	waypoints.add(new Waypoint(vec2(1500,700)))
-	waypoints.add(new Waypoint(vec2(600,2800)))
+	waypoints.add(new Waypoint(vec2(-600,100)))
+	waypoints.add(new Waypoint(vec2(800,-100)))
+	waypoints.add(new Waypoint(vec2(1700,800)))
 	waypoints.add(new Waypoint(vec2(3200,3100)))
 	waypoints.add(new Waypoint(vec2(700,3800)))
-	waypoints.add(new Waypoint(vec2(-2400,3500)))
-	waypoints.add(new Waypoint(vec2(-4000,1100)))
+	waypoints.add(new Waypoint(vec2(-2100,3500)))
+	waypoints.add(new Waypoint(vec2(-3300,3300)))
+	waypoints.add(new Waypoint(vec2(-4000,1300)))
 	waypoints.add(new Waypoint(vec2(-4000,-1000)))
 	waypoints.add(new Waypoint(vec2(-4200,-4300)))
 	waypoints.add(new Waypoint(vec2(1200,-4100)))
-	waypoints.add(new Waypoint(vec2(4000,-3500)))
+	waypoints.add(new Waypoint(vec2(4200,-3500)))

@@ -1,10 +1,13 @@
-package Buildings
+package ElvBuildings
 import LinkedListModule
 import UnitObjEditing
 import ObjectIds
 import HighelvesIds
+import ClosureEvents
 
-
+init
+	EventListener.onCast('A000') (unit caster) ->
+		caster.kill()
 
 
 public class Building
@@ -24,11 +27,11 @@ public class Building
 	int buildtime = 10
 	int foodproduced = 5
 	int foodused = 0
-	boolean isupgrade = false 
+	boolean isupgrade = false
 	int dmg = 0
-	
+
 	int repairlumbercost = 0
-	
+
 	construct(int origId, int newId, string name)
 		def = new BuildingDefinition(newId, origId)
 		this.name = name
@@ -61,7 +64,7 @@ public class Building
 			def.setTooltipBasic("Upgrade to " + name)
 		else
 			def.setTooltipBasic("Build " + name)
-			
+
 		if repairlumbercost == 0
 			def..setRepairLumberCost((lumbercost/4).round())
 		else
@@ -72,7 +75,7 @@ public function initHEBuildings(boolean c)
 	b.def.setNormalAbilities("Arlm")
 	b.buildtime = 5
 	b.hp = 80
-	
+
 	b = new Building('hhou', BARRACKS_ID, "Barracks")
 	b.def.setUnitsTrained(int2fourchar(ARCHER_ID)+","+int2fourchar(FOOTMAN_ID))
 	b.foodproduced = 0
@@ -85,7 +88,7 @@ public function initHEBuildings(boolean c)
 	b.selectionscale = 2.
 	b.lumbercost = 30
 	b.tooltip = "Trains soldiers; build your army against the dangers ahead!"
-	
+
 	b = new Building('hgtw', BASIC_WALL_ID, "Simple Barricade")
 	b.def.setUpgradesTo(int2fourchar(WALL_2_ID))
 	b.def.setAttack1ProjectileArt("")
@@ -100,7 +103,7 @@ public function initHEBuildings(boolean c)
 	b.lumbercost = 8
 	b.dmg = 1
 	b.tooltip = "However this rather could be called a \"Pile of boxes\" than a barricade, it will still hold the voracious crabs outside for a while."
-	
+
 	b = new Building('hgtw', WALL_2_ID, "Splendid Barricade")
 	b.def.setUpgradesTo(int2fourchar(WALL_3_ID))
 	b.def.setAttack1ProjectileArt("")
@@ -116,7 +119,7 @@ public function initHEBuildings(boolean c)
 	b.isupgrade = true
 	b.dmg = 1
 	b.tooltip = "If there is a perfect of a kind, this is one. A barricade that shows stability, and structure. Upgrade to it right away!"
-	
+
 	b = new Building('hgtw', WALL_3_ID, "Critterproof Wall")
 	b.def.setTintingColorBlue(200)
 	b.def.setTintingColorGreen(200)
@@ -135,7 +138,7 @@ public function initHEBuildings(boolean c)
 	b.isupgrade = true
 	b.dmg = 1
 	b.tooltip = "A modern perfection. So massive, so dense, that it will keep them critters out for a decade. You can believe me, because it is made in China."
-	
+
 	b = new Building('hwtw', BASIC_TOWER_ID, "Tower")
 	b.def.setUpgradesTo(int2fourchar(ARROW_TOWER_ID)+","+int2fourchar(CANNON_TOWER_ID))
 	b.foodproduced = 0
@@ -148,7 +151,7 @@ public function initHEBuildings(boolean c)
 	b.selectionscale = 2.0
 	b.lumbercost = 10
 	b.tooltip = "This one is good for scouting in the distance. It can also be upgraded to towers that can pew-pew!"
-	
+
 	b = new Building('hgtw', ARROW_TOWER_ID, "Arrow Tower")
 	b.def.setUpgradesTo(int2fourchar(ARROW_TOWER_2_ID))
 	b.foodproduced = 0
@@ -162,7 +165,7 @@ public function initHEBuildings(boolean c)
 	b.lumbercost = 10
 	b.dmg = 15
 	b.isupgrade = true
-	
+
 	b = new Building('hgtw', ARROW_TOWER_2_ID, "Super Arrow Tower")
 	b.def.setTintingColorBlue(150)
 	b.def.setTintingColorGreen(150)
@@ -177,7 +180,7 @@ public function initHEBuildings(boolean c)
 	b.lumbercost = 20
 	b.dmg = 43
 	b.isupgrade = true
-	
+
 	b = new Building('hctw', CANNON_TOWER_ID, "Cannon Tower")
 	b.def.setUpgradesTo(int2fourchar(CANNON_TOWER_2_ID))
 	//b.def.setRequiredAnimationNames("second,upgrade")
@@ -192,7 +195,7 @@ public function initHEBuildings(boolean c)
 	b.lumbercost = 20
 	b.dmg = 25
 	b.isupgrade = true
-	
+
 	b = new Building('hctw', CANNON_TOWER_2_ID, "Super Cannon Tower")
 	b.def.setTintingColorBlue(150)
 	b.def.setTintingColorGreen(150)
@@ -208,7 +211,7 @@ public function initHEBuildings(boolean c)
 	b.lumbercost = 30
 	b.dmg = 60
 	b.isupgrade = true
-	
+
 	b = new Building('hwtw', OBELISK_ID, "Obelisk")
 	b.foodproduced = 0
 	b.modelpath = "buildings\\other\\ElvenGuardTower\\ElvenGuardTower.mdl"
@@ -219,7 +222,7 @@ public function initHEBuildings(boolean c)
 	b.scale = 0.9
 	b.repairlumbercost = 400
 	b.selectionscale = 1
-	
+
 	b = new Building('hwtw', REV_STONE_ID, "Resurrection Stone")
 	b.def.setNormalAbilities("Avul")
 	b.def.setSightRadiusNight(1)
@@ -233,14 +236,14 @@ public function initHEBuildings(boolean c)
 	b.scale = 0.9
 	b.repairlumbercost = 400
 	b.selectionscale = 1
-	
+
 	b = new Building('nshp', SHIPYARD_ID, "Redneck Shipyard")
 	b.def.setUnitsSold(int2fourchar(BUYSHIP_ID))
 	b.foodproduced = 0
 	b.modelpath = "buildings\\other\\GoblinShipyard\\GoblinShipyard.mdl"
 	b.icon = "BTNHumanWatchTower.blp"
 	b.hp = 10000
-	
+
 	if c
 		var e = Building.first
 		while e != null

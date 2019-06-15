@@ -11,8 +11,8 @@ int rawShiftNeg
 BonusType array bonusTypes
 
 public enum Bonus
-	 LIFE
-	 MANA
+	LIFE
+	MANA
 	DAMAGE
 	ARMOR
 	SIGHTRANGE
@@ -28,9 +28,9 @@ public function getUnitBonus(unit u, Bonus bonusType) returns int
 	let bonus = bonusTypes[bonusType castTo int]
 	var result = 0
 	if  u.hasAbility(bonus.baseRaw + rawShiftNeg)
-		 result -= powersOf2[bonus.maxBonus]
+		result -= powersOf2[bonus.maxBonus]
 	for i = 0 to bonus.maxBonus - 1
-		 result += u.hasAbility(bonus.baseRaw + shiftRaw(i)) ? powersOf2[i] : 0
+		result += u.hasAbility(bonus.baseRaw + shiftRaw(i)) ? powersOf2[i] : 0
 	return result
 
 //Adds to current bonus bonusValue
@@ -38,7 +38,7 @@ public function addUnitBonus(unit u, Bonus bonusType, int bonusValue)
 	int currentBonusValue = getUnitBonus(u, bonusType)
 	int afterBonusValue = currentBonusValue + bonusValue
 	setUnitBonus(u, bonusType, afterBonusValue)
- 
+
 /** Sets the bonus of specified type for the unit to the given amount. */
 public function setUnitBonus(unit u, Bonus bonusType, int amount)
 	bonusTypes[bonusType castTo int].setBonus(u, amount)
@@ -54,7 +54,7 @@ public function getMaxBonus(Bonus bonusType) returns int
 /** Gets the smallest applicable value for the specified bonus type. */
 public function getMinBonus(Bonus bonusType) returns int
 	return -powersOf2[bonusTypes[bonusType castTo int].maxBonus]
- 
+
 /** Removes all bonuses from the specified unit. */
 public function clearAllUnitBonuses(unit u)
 	bonusTypes[Bonus.LIFE castTo int].clearBonus(u)
@@ -68,49 +68,49 @@ public function clearAllUnitBonuses(unit u)
 	bonusTypes[Bonus.STRENGTH castTo int].clearBonus(u)
 	bonusTypes[Bonus.AGILITY castTo int].clearBonus(u)
 	bonusTypes[Bonus.INTELLIGENCE castTo int].clearBonus(u)
- 
+
 
 /** Enumeration of the bonustypes. */
 class BonusType
 	int baseRaw
 	int maxBonus
- 
+
 	construct(int baseRaw, int maxBonus)
-		 this.baseRaw = baseRaw
-		 this.maxBonus = maxBonus
- 
+		this.baseRaw = baseRaw
+		this.maxBonus = maxBonus
+
 	function setBonus(unit u, int bonus)
-		 if bonus >= powersOf2[maxBonus]
-			  printLog(Loglevel.WARNING, "Bonus exceeds maximum")
-			  return
-		 if bonus < -powersOf2[maxBonus]
-			  printLog(Loglevel.WARNING, "Bonus exceeds maximum")
-			  return
-	 
-		 int val
-		 bool addNeg = false
-		 var raw = baseRaw + rawShiftNeg
-		 if bonus < 0
-			  addNeg = true
-			  val = bonus + powersOf2[maxBonus]
-		 else
-			  val = bonus
-			  UnitMakeAbilityPermanent(u, false, raw)
-			  u.removeAbility(raw)
-		  
-		 for n = maxBonus-1 downto 0
-			  raw = baseRaw + rawShifts[n]
-			  if val >= powersOf2[n]
-					u.addAbility(raw)
-					UnitMakeAbilityPermanent(u, true, raw)
-					val -= powersOf2[n]
-			  else
-					UnitMakeAbilityPermanent(u, false, raw)
-					u.removeAbility(raw)
+		if bonus >= powersOf2[maxBonus]
+			printLog(Loglevel.WARNING, "Bonus exceeds maximum")
+			return
+		if bonus < -powersOf2[maxBonus]
+			printLog(Loglevel.WARNING, "Bonus exceeds maximum")
+			return
+
+		int val
+		bool addNeg = false
+		var raw = baseRaw + rawShiftNeg
+		if bonus < 0
+			addNeg = true
+			val = bonus + powersOf2[maxBonus]
+		else
+			val = bonus
+			UnitMakeAbilityPermanent(u, false, raw)
+			u.removeAbility(raw)
+
+		for n = maxBonus-1 downto 0
+			raw = baseRaw + rawShifts[n]
+			if val >= powersOf2[n]
+				u.addAbility(raw)
+				UnitMakeAbilityPermanent(u, true, raw)
+				val -= powersOf2[n]
+			else
+				UnitMakeAbilityPermanent(u, false, raw)
+				u.removeAbility(raw)
 		 // Add negative last to avoid setting stat to <0 (killing the unit, etc)
-		 if addNeg
-			  u.addAbility(baseRaw + rawShiftNeg)
-			  UnitMakeAbilityPermanent(u, true, baseRaw + rawShiftNeg)
+		if addNeg
+			u.addAbility(baseRaw + rawShiftNeg)
+			UnitMakeAbilityPermanent(u, true, baseRaw + rawShiftNeg)
 
 	function clearBonus(unit u)
 		 var raw = baseRaw + rawShiftNeg
@@ -120,15 +120,15 @@ class BonusType
 			  raw = baseRaw + rawShifts[n]
 			  u.makeAbilityPermanent(raw, false)
 			  u.removeAbility(raw)
-	 
- 
+
+
 /** Example: 'XY00' + shiftRaw(15) -> 'XY15' */
 function shiftRaw(int n) returns int
 	if n < 10
 		 return n
 	else
 		 return (n div 10) * 256 + n.moduloInt(10)
- 
+
 
 /** Example: pow2(x) -> 2^x */
 function pow2(int e) returns int
@@ -149,7 +149,7 @@ init
 	for n = 0 to 30
 		 rawShifts[n] = shiftRaw(n)
 	rawShiftNeg = '00--' - '0000'
- 
+
 	bonusTypes[Bonus.LIFE castTo int] = new BonusType('$L00', MAX_BONUS_LIFE)
 	bonusTypes[Bonus.MANA castTo int] = new BonusType('$M00', MAX_BONUS_MANA)
 	bonusTypes[Bonus.DAMAGE castTo int] = new BonusType('$D00', MAX_BONUS_DAMAGE)
@@ -161,7 +161,7 @@ init
 	bonusTypes[Bonus.STRENGTH castTo int] = new BonusType('$S00', MAX_BONUS_STRENGTH)
 	bonusTypes[Bonus.AGILITY castTo int] = new BonusType('$A00', MAX_BONUS_AGILITY)
 	bonusTypes[Bonus.INTELLIGENCE castTo int] = new BonusType('$I00', MAX_BONUS_INTELLIGENCE)
- 
+
 @compiletime function genAbilities()
 	string rawCode
 	// Life:
@@ -180,7 +180,7 @@ init
 		 let a = new AbilityDefinitionMaxLifeBonusLeast(fourchar2int(raw))
 		 a.setMaxLifeGained(1, sign * pow2(n))
 		 setProperties(a, I2S(sign * pow2(n)), "Life")
-	 
+
 	// Mana:
 	rawCode = "$M"
 	for n = 0 to MAX_BONUS_MANA
@@ -213,7 +213,7 @@ init
 		 let a = new AbilityDefinitionAttackBonus(fourchar2int(raw))
 		 a.setAttackBonus(1, sign * pow2(n))
 		 setProperties(a, I2S(sign * pow2(n)), "Damage")
-	 
+
 	// Armor:
 	rawCode = "$R"
 	for n = 0 to MAX_BONUS_ARMOR
@@ -358,9 +358,9 @@ init
 		 let a = new AbilityDefinitionIntelligenceBonusPlus1(fourchar2int(raw))
 		 a.setIntelligenceBonus(1, sign * pow2(n))
 		 setProperties(a, I2S(sign * pow2(n)), "Intelligence")
-	 
+
 init
 	for int i = Bonus.LIFE castTo int to Bonus.INTELLIGENCE castTo int
 		 for int j = 0 to (bonusTypes[i].maxBonus - 1)
 			  preloadAbility(bonusTypes[i].baseRaw + shiftRaw(j))
- 
+

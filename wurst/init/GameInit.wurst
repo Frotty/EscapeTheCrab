@@ -1,7 +1,7 @@
 package GameInit
 import PreventTeamKill
-import Units
-import Buildings
+import ElvUnits
+import ElvBuildings
 import Crabs
 import ClosureTimers
 import Cinematic
@@ -25,6 +25,6 @@ init
 		initPR()
 		playCinematic()
 	end)
-	
+
 @compiletime function generateObjects()
 	initResources(true)

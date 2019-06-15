@@ -1,4 +1,4 @@
-package Units
+package ElvUnits
 import UnitObjEditing
 import LinkedListModule
 import HighelvesIds
@@ -8,7 +8,7 @@ import ObjectIds
 public class Unit
 	use LinkedListModule
 	UnitDefinition def
-	
+
 	int id
 	int hp = 10
 	int movespeed = 300
@@ -21,13 +21,14 @@ public class Unit
 	string modelpath = "default"
 	string icon = "default"
 	string name
-	
+	int priority = 2
+
 	construct(int origId, int newId, string name)
 		def = new UnitDefinition(newId, origId)
 		this.name = name
 		this.id = newId
-		
-		
+
+
 	function generate()
 		def..setHitPointsMaximumBase(hp)
 		..setSpeedBase(movespeed)
@@ -41,6 +42,7 @@ public class Unit
 		..setAttack1TargetsAllowed("debris,enemies,ground,structure")
 		..setTooltipBasic("Train " + name)
 		..setTooltipExtended("Very good against crabs, or nagas.")
+		..setPriority(priority)
 
 		if modelpath != "default"
 			def.setModelFile(modelpath)
@@ -54,40 +56,40 @@ public function initHEUnits(boolean c)
 	b.modelpath = "units\\critters\\HighElfPeasant\\HighElfPeasant.mdl"
 	b.icon = "BTNBloodElfPeasant.blp"
 	b.hp = 100
-	
+	b.priority = 10
+
 	b = new Unit('nhea', ARCHER_ID, "Archer")
 	b.damage = 10
 	b.hp = 35
 	b.cooldown = 0.45
 	b.modelpath = "units\\creeps\\HighElfArcher\\HighElfArcher"
 	b.icon = "BTNHighElvenArcher.blp"
-	
+
 	b = new Unit('hfoo', FOOTMAN_ID, "Footman")
 	b.damage = 15
 	b.hp = 75
 	b.cooldown = 0.65
 	b.modelpath = "units\\human\\TheCaptain\\TheCaptain.mdl"
 	b.icon = "BTNTheCaptain.blp"
-	
+
 	b = new Unit('hbot', BOAT_ID, "BOAT")
 	b.scale = 3.
 	b.hp = 1000
-	
+
 	b = new Unit('hbot', BUYSHIP_ID, "Yacht")
 	b.scale = .7
 	b.hp = 300
 	b.lumbercost = 100
-	
+
 	b = new Unit('ushd', GHOST_ID, "Ghost")
 	b.hp = 5
 	b.movespeed = 330
 	b.damage = 0
 	b.def.setNormalAbilities("Avul,Slap")
-	
+
 	if c
 		var e = Unit.first
 		while e != null
 			e.generate()
 			e = e.next
-	
-	
+

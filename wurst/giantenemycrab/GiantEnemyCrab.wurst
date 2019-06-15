@@ -11,25 +11,30 @@ import ClosureForGroups
 public class GECrab
 	unit crab
 	vec2 target
-	
-	int spawnCrabby = 15
+
+	int spawnCrabby = 21
 	int spawnKingler = 35
-	int spawnPiglets = 175
+	int spawnPiglets = 65
 	int count = 0
 	int reorderCount = 25
-	
+
 	construct(vec2 pos)
 		crab = createUnit(CRAB_PLAYER, GECRAB_ID, pos, angle(0))
 		crab.addAbility('Aeth')
-		CreateFogModifierRectBJ( true, CRAB_PLAYER, FOG_OF_WAR_VISIBLE, GetPlayableMapRect() )
-				
+		RemoveGuardPosition(crab)
+		// CreateFogModifierRectBJ( true, CRAB_PLAYER, FOG_OF_WAR_VISIBLE, GetPlayableMapRect() )
+
 	function startUpdate()
 		crab.issuePointOrder("attack", waypoints.getFirst().point)
+		doPeriodically(10.) (CallbackPeriodic cb) ->
+			crab.issuePointOrder("attack", waypoints.getFirst().point)
+			addUnitBonus(crab, Bonus.DAMAGE, 2)
+			addUnitBonus(crab, Bonus.ATTACKSPEED, 2)
+
 		doPeriodically(1., (CallbackPeriodic cb) -> begin
 			execute(() -> begin
-				if waypoints.size() > 0 and crab.getPos().distanceTo(waypoints.getFirst().point) < 200.
+				if waypoints.size() > 0 and crab.getPos().distanceTo(waypoints.getFirst().point) < 300.
 					waypoints.dequeue()
-					crab.issuePointOrder("attack", waypoints.getFirst().point)
 				reorderCount--
 				if reorderCount < 0
 					reorderCount = 25
@@ -38,7 +43,7 @@ public class GECrab
 							u.issuePointOrder("attack", waypoints.getFirst().point)
 					end)
 					crab.issuePointOrder("attack", waypoints.getFirst().point)
-					
+
 				boolean dead = true
 				for p in allPlayers
 					if p.worker.isAlive()
@@ -50,39 +55,41 @@ public class GECrab
 				if not crab.isAlive()
 					for p in allPlayers
 						CustomVictoryBJ(p.p, true, true)
-					
+
 				spawnCrabby--
 				if spawnCrabby < 0
-					spawnCrabby = 22
+					spawnCrabby = max(16, spawnKingler-1)
 					addEffect("Objects\\Spawnmodels\\Naga\\NagaDeath\\NagaDeath.mdl", crab.getPos()).destr()
-					var crabby = createUnit(CRAB_PLAYER, CRABBY_ID, crab.getPos()+vec2(0,50), angle(0))..issuePointOrder("attack", waypoints.getFirst().point)..setUserData(1)
+					var crabby = createUnit(CRAB_PLAYER, CRABBY_ID, crab.getPos()+vec2(0,50), angle(0))..issuePointOrder("attack", waypoints.getFirst().point)
+					..setTimedLife(160)
+					addUnitBonus(crabby, Bonus.LIFE, count * 2)
+					addUnitBonus(crabby, Bonus.DAMAGE, (count / 5.).round())
+					crabby = createUnit(CRAB_PLAYER, CRABBY_ID, crab.getPos()+vec2(0,-50), angle(0))..issuePointOrder("attack", waypoints.getFirst().point)
 					..setTimedLife(120.)
-					addUnitBonus(crabby, Bonus.DAMAGE, (count/5.).round())
-					crabby = createUnit(CRAB_PLAYER, CRABBY_ID, crab.getPos()+vec2(0,-50), angle(0))..issuePointOrder("attack", waypoints.getFirst().point)..setUserData(1)
-					..setTimedLife(120.)
-					addUnitBonus(crabby, Bonus.LIFE, count)
+					addUnitBonus(crabby, Bonus.LIFE, count * 2)
+					addUnitBonus(crabby, Bonus.DAMAGE, (count / 5.).round())
 					count++
-					
+
 				spawnKingler--
 				if spawnKingler < 0
-					spawnKingler = 31
+					spawnKingler = max(21, spawnKingler-1)
 					addEffect("Objects\\Spawnmodels\\Naga\\NagaDeath\\NagaDeath.mdl", crab.getPos()).destr()
-					let kingler = createUnit(CRAB_PLAYER, KINGLER_ID, crab.getPos(), angle(0))..issuePointOrder("attack", waypoints.getFirst().point)..setUserData(1)
-					..setTimedLife(120.)
-					addUnitBonus(kingler, Bonus.LIFE, (count.toReal() * 2.).round())
-					addUnitBonus(kingler, Bonus.ATTACKSPEED, (count.toReal() * 0.2).round())
+					let kingler = createUnit(CRAB_PLAYER, KINGLER_ID, crab.getPos(), angle(0))..issuePointOrder("attack", waypoints.getFirst().point)
+					..setTimedLife(160.)
+					addUnitBonus(kingler, Bonus.LIFE, (count.toReal() * 5.).round())
+					addUnitBonus(kingler, Bonus.ATTACKSPEED, (count.toReal() * 0.25).round())
 					count++
-					
+
 				spawnPiglets--
 				if spawnPiglets < 0
-					spawnPiglets = 205
+					spawnPiglets = 95
 					addEffect("Objects\\Spawnmodels\\Naga\\NagaDeath\\NagaDeath.mdl", crab.getPos()).destr()
-					addUnitBonus(crab, Bonus.ATTACKSPEED, (count.toReal() * 0.4).round())
-					SetUnitMoveSpeed(crab, GetUnitMoveSpeed(crab)+15)
-					for i = 0 to 8
-						createUnit(CRAB_PLAYER, PIGLET_ID, crab.getPos(), angle(0))..issuePointOrder("attack", waypoints.getFirst().point)..setUserData(1)
+					addUnitBonus(crab, Bonus.ATTACKSPEED, (count.toReal() * 0.2).round())
+					SetUnitMoveSpeed(crab, GetUnitMoveSpeed(crab)+10)
+					for i = 0 to 4
+						let pig = createUnit(CRAB_PLAYER, PIGLET_ID, crab.getPos(), angle(0))..issuePointOrder("attack", waypoints.getFirst().point)
 						..setTimedLife(120.)
+						addUnitBonus(pig, Bonus.LIFE, (count.toReal() * 2.).round())
 			end)
 		end)
-		
-	
+
