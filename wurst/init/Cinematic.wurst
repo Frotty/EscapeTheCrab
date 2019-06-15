@@ -38,7 +38,7 @@ public function playCinematic()
 			CameraSetupApplyForceDuration(gg_cam_Camera_004, true, 5. * speed)
 			doAfter(2 * speed, () -> begin
 				for p in allPlayers
-					p.worker = createUnit(p.p, WORKER_ID, target+vec2(0, 180), angle(0))
+					p.worker = new Worker(p.p, target+vec2(0, 180))
 					p.p..setState(PLAYER_STATE_RESOURCE_GOLD, 0)..setState(PLAYER_STATE_RESOURCE_LUMBER, 5)
 
 				createUnit(Player(10), FOOTMAN_ID, target+vec2(-20, 80), angle(0))
@@ -60,7 +60,7 @@ public function playCinematic()
 						CameraSetupApplyForceDuration(gg_cam_Camera_004, true, 1.)
 						CinematicModeBJ( false, GetPlayersAll())
 						for p in allPlayers
-							p.p.selectSingle(p.worker)
+							p.p.selectSingle(p.worker.worker)
 						crab.startUpdate()
 
 						startIslandOne()

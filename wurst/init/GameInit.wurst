@@ -6,7 +6,6 @@ import Crabs
 import ClosureTimers
 import Cinematic
 import Players
-import CrabWaypoints
 import Resurrection
 import EntityManagement
 
@@ -20,7 +19,6 @@ init
 		initPlayers()
 		initResources(false)
 		startEntityLoop()
-		initWayPoints()
 		initResurrection()
 		initPR()
 		playCinematic()
