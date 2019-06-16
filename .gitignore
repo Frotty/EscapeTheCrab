@@ -26,7 +26,8 @@ $RECYCLE.BIN/
 .LSOverride
 
 # Icon must ends with two \r.
-Icon
+Icon
+
 
 # Thumbnails
 ._*
@@ -37,7 +38,6 @@ Icon
 
 *.w3o
 objectEditingOutput/WurstExportedObjects_w3u.wurst.txt
-wurst/war3map.j
 objectEditingOutput/WurstExportedObjects_w3b.wurst.txt
 objectEditingOutput/WurstExportedObjects_w3a.wurst.txt
 objectEditingOutput/WurstExportedObjects_w3d.wurst.txt
