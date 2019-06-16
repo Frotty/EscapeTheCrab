@@ -4,6 +4,6 @@ dependencies:
 - https://github.com/wurstscript/wurstStdlib2
 - https://github.com/frotty/frentity
 buildMapData:
-  name: EscapeTheCrab022c
-  fileName: EscapeTheCrab022c
+  name: EscapeTheCrab022e
+  fileName: EscapeTheCrab022e
   author: Frotty
