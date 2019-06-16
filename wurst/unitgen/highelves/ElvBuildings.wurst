@@ -72,7 +72,7 @@ public class Building
 
 public function initHEBuildings(boolean c)
 	var b = new Building('hhou', HOUSE_ID, "House")
-	b.def.setNormalAbilities("Arlm")
+	b.def.setNormalAbilities("Arlm,A000")
 	b.buildtime = 5
 	b.hp = 80
 
@@ -90,6 +90,7 @@ public function initHEBuildings(boolean c)
 	b.tooltip = "Trains soldiers; build your army against the dangers ahead!"
 
 	b = new Building('hgtw', BASIC_WALL_ID, "Simple Barricade")
+	b.def.setNormalAbilities("A000")
 	b.def.setUpgradesTo(int2fourchar(WALL_2_ID))
 	b.def.setAttack1ProjectileArt("")
 	b.def.setAttack1Range(128)
