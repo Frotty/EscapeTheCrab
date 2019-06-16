@@ -10,7 +10,7 @@ import Execute
 import ClosureForGroups
 
 // How long to wait before the next all-unit order.  Seconds.
-constant REORDER_PERIOD = 25.
+constant REORDER_PERIOD = 15.
 
 // How long to wait between iterations of unit handling.  Seconds.
 constant WORK_PERIOD = 1.
@@ -40,7 +40,6 @@ function getCreepTarget() returns vec2
 			comparator)
 		.point
 
-constant distances = asOwnedList(512., 512., 512., 1024., 1024., 1024., 1024., 2048.)
 constant grp = CreateGroup()
 unit source
 // Order this unit to roughly attack the target, using some modifiers:
@@ -60,12 +59,7 @@ function unit.creepOrder(vec2 target)
 	if grp.hasNext()
 		this.issuePointOrder("attack", grp.next().getPos())
 	else
-		let threshold = distances..shuffle().getFirst()
-
-		if this.getPos().distanceToSq(target) > threshold * threshold
-			this.issuePointOrder("move", target)
-		else
-			this.issuePointOrder("attack", target)
+		this.issuePointOrder("attack", target)
 
 public class GECrab
 	unit crab
