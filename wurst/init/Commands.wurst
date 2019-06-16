@@ -1,0 +1,37 @@
+package Commands
+import LinkedList
+import WurstCommand
+
+function player.remove()
+    RemovePlayer(this, PLAYER_GAME_RESULT_DEFEAT)
+
+init
+    addCommand(
+        "kick",
+        (p, c, _) -> p == players[0] and c == "kick"
+    ) (_, _c, args) ->
+        let cmd = args.get(0)
+        switch cmd
+            case "blue"
+                players[1].remove()
+            case "teal"
+                players[2].remove()
+            case "purple"
+                players[3].remove()
+            case "yellow"
+                players[4].remove()
+            case "orange"
+                players[5].remove()
+            case "green"
+                players[6].remove()
+            case "pink"
+                players[7].remove()
+            case "grey" | "gray"
+                players[8].remove()
+            case "lightblue" | "lb" | "light-blue"
+                players[9].remove()
+            default
+                printTimedToPlayer(
+                    "Couldn't understand that - try |cffffcc00-kick blue|r.",
+                    10.,
+                    players[0])

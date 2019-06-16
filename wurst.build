@@ -4,6 +4,7 @@ dependencies:
 - https://github.com/wurstscript/wurstStdlib2
 - https://github.com/frotty/frentity
 - https://github.com/theQuazz/wurst-lodash
+- https://github.com/Cokemonkey11/WurstCommand
 buildMapData:
   name: EscapeTheCrab022g
   fileName: EscapeTheCrab022g
