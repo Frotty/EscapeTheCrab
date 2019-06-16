@@ -1,4 +1,5 @@
 package Players
+import ClosureEvents
 import HighelvesIds
 import LinkedList
 import Lodash
@@ -75,3 +76,11 @@ public function initPlayers()
 			pDatas[i] = new PData(players[i])
 			allPlayers.add(pDatas[i])
 	playercount = allPlayers.size()
+
+init
+	EventListener.add(EVENT_PLAYER_LEAVE) ->
+		let leaver = GetTriggerPlayer()
+		let lumber = leaver.getLumber() div allPlayers.size()
+		leaver.setLumber(0)
+		print("|cffffcc00" + leaver.getName() + "|r has left the game!  You got |cffaaffaa" + lumber.toString() + "|r of their lumber.")
+		allPlayers..forEach(p -> p.p.addLumber(lumber))
