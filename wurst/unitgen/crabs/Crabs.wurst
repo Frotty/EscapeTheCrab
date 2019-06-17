@@ -6,7 +6,7 @@ import LinkedListModule
 class Crab
 	use LinkedListModule
 	UnitDefinition def
-	
+
 	int id
 	int hp = 50
 	int movespeed = 280
@@ -19,12 +19,12 @@ class Crab
 	real aqr = 1600
 	Race rce = Race.Critters
 	MovementType mtype = MovementType.Amphipic
-	
+
 	construct(int origId, int newId, string name)
 		def = new UnitDefinition(newId, origId)
 		def.setName(name)
 		this.id = newId
-	
+
 	function generate()
 		def..setHitPointsMaximumBase(hp)
 		..setSpeedBase(movespeed)
@@ -48,20 +48,20 @@ public function initCrabs(boolean ct)
 	c.cooldown = 2.75
 	c.movespeed = 165
 	c.scale = 5
-	c.range = 80
+	c.range = 95
 	c.hpreg = 250.
 	c.colsize = 32.
 	c.aqr = 999999
 
 	c = new Crab('nscb', CRABBY_ID, "Crabby")
 	c.movespeed = 315
-	
-	
+
+
 	c = new Crab('nsc2', KINGLER_ID, "Kingler")
 	c.scale = 1.2
 	c.hp = 120
 	c.movespeed = 280
-	
+
 	c = new Crab('nqb2', PIGLET_ID, "Piglet")
 	c.scale = 0.8
 	c.hp = 25
@@ -72,4 +72,4 @@ public function initCrabs(boolean ct)
 		while e != null
 			e.generate()
 			e = e.next
-	
+

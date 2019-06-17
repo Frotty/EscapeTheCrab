@@ -117,10 +117,10 @@ public class GECrab
 				if spawnCrabby < 0
 					spawnCrabby = max(16, spawnKingler-1)
 					addEffect("Objects\\Spawnmodels\\Naga\\NagaDeath\\NagaDeath.mdl", crab.getPos()).destr()
-					for i = 0 to max(1, count / 20.).toInt()
+					for i = 0 to max(1, count / 40.).toInt()
 						var crabby = createUnit(CRAB_PLAYER, CRABBY_ID, crab.getPos()+vec2(0,50), angle(0))..issuePointOrder("attack", waypoints.getFirst().point)
 						..setTimedLife(160)
-						addUnitBonus(crabby, Bonus.LIFE, (count * 1.55).round())
+						addUnitBonus(crabby, Bonus.LIFE, (count * 1.75).round())
 						addUnitBonus(crabby, Bonus.DAMAGE, (count / 8.).round())
 					count++
 
@@ -143,6 +143,7 @@ public class GECrab
 					for i = 0 to 4
 						let pig = createUnit(CRAB_PLAYER, PIGLET_ID, crab.getPos(), angle(0))..issuePointOrder("attack", waypoints.getFirst().point)
 						..setTimedLife(120.)
+						addUnitBonus(pig, Bonus.LIFEREGEN, (count / 12.).round())
 						addUnitBonus(pig, Bonus.LIFE, (count.toReal() * 2.).round())
 			end)
 		end)
