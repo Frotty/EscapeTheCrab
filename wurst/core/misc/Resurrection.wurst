@@ -13,13 +13,13 @@ LinkedList<RevStone> revstones = new LinkedList<RevStone>()
 
 public class RevStone extends UnitEntity
 	boolean activated= false
-	
+
 	construct(vec2 pos)
 		super(CreateUnit(Player(10), REV_STONE_ID,pos.x,pos.y, 270.))
 		trigger rangeTrigger = CreateTrigger()
 		rangeTrigger.registerUnitInRangeSource(actor, range, null)
 		rangeTrigger.addAction(function onStoneRange)
-	
+
 	static function onStoneRange()
 		var ston = GetTriggeringTrigger().getSource().getEntity() castTo RevStone
 		var near = GetTriggerUnit()
@@ -36,24 +36,25 @@ public class RevStone extends UnitEntity
 						g.revive()
 						destroy cb
 				end)
-				
-				
+			ghosts.clear()
+
+
 public class Ghost
 	unit ghost
 	real speed = 0
 	bool revived = false
-	 
+
 	construct(unit worker)
 		ghost = CreateUnit(worker.getOwner(),GHOST_ID,worker.getX(),worker.getY(), 0.)
 		worker.getOwner()..select(ghost).panCamToTimed(ghost, 0.25)
-	
+
 	function revive()
 		if not revived
 			let u = CreateUnit(ghost.getOwner(),WORKER_ID,ghost.getX(),ghost.getY(), 0.)
 			ghost.getOwner()..select(u).panCamToTimed(u, 0.25)
 			ghost.kill()
 			destroy this
-		
+
 function workerDeath()
 	if GetDyingUnit().getTypeId() == WORKER_ID
 		ghosts.add(new Ghost(GetDyingUnit()))
